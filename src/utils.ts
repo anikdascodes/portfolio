@@ -28,13 +28,31 @@ export const kFormatter = (num: number) => {
 };
 
 export const getRepositoryDetails = async (repositoryFullname: string) => {
-	const repoDetails = await fetch('https://api.github.com/repos/' + repositoryFullname, {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}`,
+	try {
+		// Prepare headers based on whether token is available
+		const headers: Record<string, string> = {
 			'X-GitHub-Api-Version': '2022-11-28'
+		};
+		
+		// Only add Authorization header if token exists
+		if (GITHUB_PERSONAL_ACCESS_TOKEN) {
+			headers.Authorization = `Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}`;
 		}
-	});
-	const response = await repoDetails.json();
-	return response;
+		
+		const repoDetails = await fetch('https://api.github.com/repos/' + repositoryFullname, {
+			method: 'GET',
+			headers
+		});
+		
+		if (!repoDetails.ok) {
+			console.warn(`Failed to fetch repo details for ${repositoryFullname}: ${repoDetails.statusText}`);
+			return {}; // Return empty object on failure
+		}
+		
+		const response = await repoDetails.json();
+		return response;
+	} catch (error) {
+		console.error(`Error fetching repository details for ${repositoryFullname}:`, error);
+		return {}; // Return empty object on error
+	}
 };

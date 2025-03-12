@@ -1,8 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectList from '../../components/ProjectList.astro';
-import { projects } from './projects';
+import { getCollection } from 'astro:content';
 
+const projectsEntry = await getCollection('projects');
+// Since we're storing all projects in the "projects" array within the projects.json file
+const projects = projectsEntry[0].data.projects;
 ---
 
 <BaseLayout

@@ -1,0 +1,60 @@
+{
+  "projects": [
+    {
+      "name": "Devaradise.com",
+      "description": "A blog that sharing web development resources and tutorials",
+      "demoLink": "https://devaradise.com",
+      "tags": ["Blog"]
+    },
+    {
+      "name": "Sellercraft App",
+      "description": "An Ecommerce omnichannel platform in Southeast Asia",
+      "demoLink": "https://sellercraft.co",
+      "demoLinkRel": "nofollow noopener noreferrer",
+      "tags": ["ECommerce", "Saas"]
+    },
+    {
+      "name": "Gaji.id App",
+      "description": "Payroll and HR Management Information System",
+      "demoLink": "https://gaji.id",
+      "demoLinkRel": "nofollow noopener noreferrer",
+      "tags": ["HRIS", "Saas"]
+    },
+    {
+      "name": "Paradise UI",
+      "description": "A React component library with beautiful UI components",
+      "demoLink": "https://paradise-ui.com",
+      "postLink": "https://devaradise.com/how-i-build-paradise-ui-react-component-library/",
+      "tags": ["React", "UI Library"],
+      "html_url": "https://github.com/devaradise/paradise-ui"
+    },
+    {
+      "name": "React Lab",
+      "description": "A collection of React experiments and examples",
+      "demoLink": "https://devaradise.com/lab/react/",
+      "tags": ["React"],
+      "html_url": "https://github.com/syakirurahman/react-lab"
+    },
+    {
+      "name": "Pokemon Catcher",
+      "description": "A fun Pokemon catching game built with React",
+      "demoLink": "https://pokemon-catcher-18636.web.app/",
+      "tags": ["Hobby"],
+      "html_url": "https://github.com/syakirurahman/pokemon-catcher"
+    },
+    {
+      "name": "Movie Nominations",
+      "description": "A movie nomination app for awards",
+      "demoLink": "https://movie-nominations-c21c3.web.app/",
+      "tags": ["Hobby"],
+      "html_url": "https://github.com/syakirurahman/movie-nominations"
+    },
+    {
+      "name": "Organization tree",
+      "description": "A visual organization tree structure viewer",
+      "demoLink": "https://organization-tree-2a446.web.app/",
+      "tags": ["Hobby"],
+      "html_url": "https://github.com/syakirurahman/organization-tree"
+    }
+  ]
+}
