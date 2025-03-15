@@ -1,71 +1,73 @@
-# Devolio
+# Astro Developer Portfolio Template
+A minimal, easy-to-customize developer portfolio template built with [Astro](https://astro.build/) and [TailwindCSS](https://tailwindcss.com/). No JavaScript in final build.
 
-Devolio is a free portfolio and blog template to help you setup your personal website quickly.
+## Demo
+Check out a real-world example: [devidev.io](https://devidev.io)
 
-[Demo](https://devolio.devaradise.com) [Article](https://devaradise.com/devolio-astro-portfolio-blog-theme)
+![Astro Developer Portfolio Template - About Preview | devi|dev|io](assets/preview-about.png)
 
----
+![Astro Developer Portfolio Template - Projects Preview | devi|dev|io](assets/preview-projects.png)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/devaradise/devolio)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/devaradise/devolio)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/devaradise/devolio?devcontainer_path=.devcontainer/blog/devcontainer.json)
+## Features
+- No bundled JavaScript – optimized for performance and speed.
+- Fully responsive – mobile-friendly and adaptable across all devices.
+- SEO & Social Media Ready – includes OpenGraph, Twitter, and DublinCore metadata.
+- 100/100 Google PageSpeed Score – for both mobile and desktop.
+- Code highlighting – clean and readable syntax with [Shiki](https://github.com/shikijs/shiki).
+- Developer Portfolio & Projects Showcase – display your work with ease.
+- Code Editor-Inspired Design – modern and developer-friendly aesthetics.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/next-netlify-starter)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdevaradise%2Fdevolio)
+## Tech Stack
+- [Astro](https://astro.build/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Shiki](https://github.com/shikijs/shiki)
 
-Features:
+## Getting Started
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-- ✅ Post tags
-- ✅ Projects
-- ✅ Table of content
+```sh
+# 1. Clone the repository
+git clone https://github.com/devidevio/astro-developer-portfolio .
 
-## 🚀 Project Structure
+# 2. Install dependencies
+npm install
 
-Inside of your Astro project, you'll see the following folders and files:
+# 3. Run the development server
+npm run dev
 
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-│   └── styles/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+# 4. Build for production
+npm run build
+
+# Deploy the contents of the `./dist` folder wherever you like.
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Customization
+### Site & Domain Configuration
+- Modify `astro.config.mjs` to update your `site` settings, including metadata for SEO.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### Theme Customization
+- Adjust the primary theme color in `tailwind.config.js`, to fit your branding.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+### Updating Content & SEO
+Edit the **Frontmatter** variables in these files:
+- `src/layouts/Layout.astro` – General page info (title, SEO, etc.)
+- `src/components/Socials.astro` – Update your social media links.
+- `src/components/Profile.astro` – Personal profile information.
+- `src/components/ContentProjects.astro` – Projects/portfolio section content.
+- `src/components/ContentAbout.astro` – About section content.
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Profile Picture
+- Replace `/src/assets/profile.png` with your own image.
 
-## 🧞 Commands
+### Logo & OpenGraph Image
+- Update these files:
+  - `/public/img/logo.svg` (your logo)
+  - `/public/img/meta.png` (your OpenGraph image)
 
-All commands are run from the root of the project, from a terminal:
+Need a free OpenGraph image?
+- https://tailwind-generator.com/og-image-generator/generator
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm run dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm run build`           | Build your production site to `./dist/`          |
-| `pnpm run preview`         | Preview your build locally, before deploying     |
-| `pnpm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm run astro -- --help` | Get help using the Astro CLI                     |
+### Sitemap & Robots.txt
+- Adjust `/public/robots.txt` to match your domain.
 
-## 👀 Want to learn more?
-
-Check out [Astro documentation](https://docs.astro.build).
-
+## ⭐ Contributing
+Feel free to fork, customize, and contribute to this project. If you find it useful, leaving a star would be greatly appreciated.
