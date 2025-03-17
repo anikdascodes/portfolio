@@ -2,53 +2,52 @@
 title: "About Me"
 ---
 
-# Developer Profile
+# Data Science Student
 
-Hi, I'm **Dejan Vi.**, a passionate developer focused on building secure, performant, and privacy-respecting applications.
+Hi, I'm **Anik Das**, a passionate Data Science student from Kolkata, West Bengal, India. I'm currently pursuing my BSc in Data Science and focused on developing data-driven solutions to real-world problems.
 
-## Tech Stack
+## Education
 
-### Frontend
-- Angular
-- JavaScript
-- TypeScript
-- TailwindCSS
-- PrimeNG
-- Astro
-- Ionic
-- Stencil
-- Capacitor
-- SCSS
-- Markdown
-- WordPress
+### BSC Data Science
+- Calcutta Institute of Science And Management
+- 2022 - Present
+- Affiliated to Maulana Abul Kalam Azad University of Technology, West Bengal
+- Currently in 3rd Year
 
-### Backend
-- Supabase
-- Node.js
-- Bun
-- Deno
-- PostgreSQL
-- MySQL
-- S3 Storage
-- Resend
+### Higher Secondary
+- Gournagar High School
+- West Bengal Council of Higher Secondary Education
+- 2022
+- Science Stream
+- Subjects: Bengali, English, Math, Physics, Chemistry, Computer Science
 
-### DevOps
-- GitLab
-- GitHub
-- Cloudflare
-- Docker
+### Secondary
+- Gournagar High School
+- West Bengal Board Of Secondary Education
+- 2020
+
+## Skills & Interests
+- Data Analysis
+- Machine Learning
+- Python Programming
+- Data Visualization
+- Statistical Analysis
+- SQL & Database Management
+- Exploratory Data Analysis
+- Problem Solving
 
 ## Areas of Interest
-- Open Source
-- Security
-- Privacy
-- Performance
-- Self-Hosting
-- Networking
+- Big Data
+- Artificial Intelligence
+- Deep Learning
+- Data Mining
+- Predictive Analytics
+- Natural Language Processing
+- Computer Vision
 
 ## Connect With Me
-- GitHub: [devidevio](https://github.com/devidevio)
-- Twitter: [@devidev_io](https://x.com/devidev_io)
-- LinkedIn: [Dejan Vi](https://www.linkedin.com/in/dejan-vi)
-- Xing: [Dejan Vintonjiv](https://www.xing.com/profile/Dejan_Vintonjiv)
-- Email: [hi@devidev.io](mailto:hi@devidev.io)
+- GitHub: [anikdascodes](https://github.com/anikdascodes)
+- X (Twitter): [@AnikCodes](https://x.com/AnikCodes)
+- LinkedIn: [anikdascodes](https://www.linkedin.com/in/anikdascodes/)
+- Kaggle: [anik0012](https://www.kaggle.com/anik0012)
+- Email: [anik.das.data.science@gmail.com](mailto:anik.das.data.science@gmail.com)

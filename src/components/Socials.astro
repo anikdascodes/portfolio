@@ -2,26 +2,30 @@
 import SocialIcon from './SocialIcon.astro';
 
 interface Social {
-    icon: 'github' | 'linkedIn' | 'twitter' | 'email' | 'xing';
+    icon: 'github' | 'linkedIn' | 'twitter' | 'email' | 'xing' | 'kaggle';
     link: string;
     title?: string;
 }
 
 const socials: Social[] = [{
     icon: 'github',
-    link: 'https://github.com/devidevio',
+    link: 'https://github.com/anikdascodes',
     title: 'View GitHub Profile'
 }, {
     icon: 'twitter',
-    link: 'https://x.com/devidev_io',
-    title: 'View Twitter Profile'
+    link: 'https://x.com/AnikCodes',
+    title: 'View X (Twitter) Profile'
 }, {
     icon: 'linkedIn',
-    link: 'https://www.linkedin.com/in/dejan-vi',
+    link: 'https://www.linkedin.com/in/anikdascodes/',
     title: 'View LinkedIn Profile'
-},  {
+}, {
+    icon: 'kaggle',
+    link: 'https://www.kaggle.com/anik0012',
+    title: 'View Kaggle Profile'
+}, {
     icon: 'email',
-    link: 'mailto:hi@devidev.io',
+    link: 'mailto:anik.das.data.science@gmail.com',
     title: 'Send Email'
 }];
 

@@ -1,89 +1,70 @@
 ---
 import { Code } from 'astro:components';
 
-const code = `interface Developer {
-    name: string;
-    skills: string[];
-    interests: string[];
-};
+const code = `interface Education {
+    degree: string;
+    institution: string;
+    period: string;
+    details?: string[];
+}
 
-interface TechStack {
-    devOps: string[];
-    backend: string[];
-   frontend: string[];
-};
+interface Contact {
+    type: 'github' | 'twitter' | 'linkedIn' | 'kaggle' | 'email';
+    link: string;
+}
 
-type ContactType = 'github' | 'twitter' | 'linkedIn' | 'xing' | 'email';
-
-const techStack: TechStack = {
-    devOps: [
-        'GitLab',
-        'GitHub',
-        'Cloudflare',
-        'Docker'
-    ],
-    frontend: [
-        'Angular',
-        'JavaScript',
-        'TypeScript',
-        'TailwindCSS',
-        'PrimeNG',
-        'Astro',
-        'Ionic',
-        'Stencil',
-        'Capacitor',
-        'SCSS',
-        'Markdown',
-        'WordPress'
-    ],
-    backend: [
-        'Supabase',
-        'Node.js',
-        'Bun',
-        'Deno',
-        'PostgreSQL',
-        'MySQL',
-        'S3 Storage',
-        'Resend'
-    ]
-};
-
-// Developer profile
-const me: Developer = {
-    name: 'Dejan Vi.',
-    skills: [
-        ...techStack.devOps,
-        ...techStack.backend,
-        ...techStack.frontend
-    ],
-    interests: [
-        'Open Source',
-        'Security',
-        'Privacy',
-        'Performance',
-        'Self-Hosting',
-        'Networking'
-    ]
-};
-
-// Contact function
-const contact = (type: ContactType): string => {
-    switch (type) {
-        case 'github':
-            return 'https://github.com/devidevio';
-        case 'twitter':
-            return 'https://x.com/devidev_io';
-        case 'linkedIn':
-            return 'https://www.linkedin.com/in/dejan-vi';
-        case 'xing':
-            return 'https://www.xing.com/profile/Dejan_Vintonjiv';
-        case 'email':
-            return 'hi@devidev.io';
-        default:
-            return 'Send fax.';
+const education: Education[] = [
+    {
+        degree: 'BSC Data Science',
+        institution: 'Calcutta Institute of Science And Management',
+        period: '2022 - Present',
+        details: [
+            'Affiliated to Maulana Abul Kalam Azad University of Technology, West Bengal',
+            'Currently in 3rd Year'
+        ]
+    },
+    {
+        degree: 'Higher Secondary',
+        institution: 'Gournagar High School',
+        period: '2022',
+        details: [
+            'West Bengal Council of Higher Secondary Education',
+            'Science Stream',
+            'Subjects: Bengali, English, Math, Physics, Chemistry, Computer Science'
+        ]
+    },
+    {
+        degree: 'Secondary',
+        institution: 'Gournagar High School',
+        period: '2020',
+        details: [
+            'West Bengal Board Of Secondary Education'
+        ]
     }
-};
+];
 
+const contact: Contact[] = [
+    {
+        type: 'github',
+        link: 'https://github.com/anikdascodes'
+    },
+    {
+        type: 'linkedIn',
+        link: 'https://www.linkedin.com/in/anikdascodes/'
+    },
+    {
+        type: 'twitter',
+        link: 'https://x.com/AnikCodes'
+    },
+    {
+        type: 'kaggle',
+        link: 'https://www.kaggle.com/anik0012'
+    },
+    {
+        type: 'email',
+        link: 'mailto:anik.das.data.science@gmail.com'
+    }
+];
 `;
 ---
 
@@ -94,7 +75,6 @@ const contact = (type: ContactType): string => {
 />
 
 <style is:global>
-
     /* Custom styling for code block line numbers */
     pre.astro-code {
         @apply bg-transparent !important;
@@ -115,5 +95,4 @@ const contact = (type: ContactType): string => {
         counter-increment: step;
         @apply text-gray-600 pr-2;
     }
-
 </style>

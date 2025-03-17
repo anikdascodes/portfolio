@@ -5,8 +5,8 @@ import ProfilePicture from '../assets/profile.png';
 const profile = {
     name: 'Anik Das',
     title: 'Data Science Student',
-    location: 'Kolkata, India',
-    description: 'Passionate web developer focused on creating clean, efficient, and scalable web applications with a modern tech stack. Specialized in Angular, TypeScript, and Supabase, delivering responsive and intuitive user interfaces. Even my name includes "dev".'
+    location: 'Kolkata, West Bengal, India',
+    description: 'I am a passionate Data Science student currently pursuing my BSC in Data Science. I love working with data and developing solutions that make a difference. My journey in data science is driven by curiosity and a desire to solve real-world problems.'
 };
 ---
 
@@ -19,8 +19,9 @@ const profile = {
             formats={['webp']}
             width={96}
             height={96}
-            alt={'Profile picture ' + profile.name}
+            alt={profile.name}
             title={profile.name}
+            loading="eager"
             class="w-24 h-24 rounded-xl object-cover border-2 border-primary mx-auto sm:mx-0"
         />
 
