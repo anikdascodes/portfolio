@@ -11,36 +11,19 @@ interface Project {
 };
 
 const projects: Project[] = [{
-    name: 'Papersend.io',
-    description: 'Papersend is the free alternative to DocSend for secure document sharing, tracking, and Data Rooms. Customize branding, control access, and protect your documents.',
+    name: 'Resume Screening Application',
+    description: 'A sophisticated resume screening application that leverages machine learning to analyze and process resumes efficiently. Built with advanced NLP techniques to extract and analyze key information from resumes, helping streamline the recruitment process.',
     link: {
-        url: 'https://papersend.io/',
-    }
-}, {
-    name: 'Qivi.io',
-    description: 'Qivi is an all-in-one application designed to streamline business operations, enhance productivity, and maximize success. Data security is a priority.',
-    link: {
-        url: 'https://qivi.io/'
-    }
-}, {
-    name: 'TECHPOINT.de',
-    description: 'TECHPOINT is a local IT service provider based in the Starnberg district and the Fünfseenland region, specializing in delivering reliable and modern IT solutions.',
-    link: {
-        url: 'https://techpoint.de/'
+        url: 'https://github.com/anikdascodes/resume-screening',
+        buttonLabel: 'View on GitHub'
     }
 }];
 ---
 
 <div>
-
-    <!-- <h2 class="text-2xl font-bold text-white mb-4">Latest Projects</h2> -->
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
+    <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
         {projects.map(project =>
-
             <div class="flex flex-col justify-center items-start border border-gray-700 rounded-lg p-4 bg-black">
-
                 <h3 class="text-xl font-semibold text-white mb-2">
                     {project.name}
                 </h3>
@@ -57,9 +40,7 @@ const projects: Project[] = [{
                             target={project.link.target || '_blank'}
                             class="
                                 w-full px-4 py-2.5 mt-4 text-center
-
                                 border border-gray-600 rounded-lg
-
                                 hover:text-primary
                                 hover:border-primary
                             ">
@@ -67,11 +48,7 @@ const projects: Project[] = [{
                         </a>
                     : null
                 }
-
             </div>
-
         )}
-
     </div>
-
 </div>
