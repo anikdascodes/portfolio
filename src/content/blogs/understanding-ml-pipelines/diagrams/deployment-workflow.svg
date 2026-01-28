@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 220" style="background:#0a0a0a">
+  <text x="350" y="25" text-anchor="middle" fill="#10B981" font-family="monospace" font-size="16" font-weight="bold">ML Pipeline Deployment Workflow</text>
+  
+  <!-- Development -->
+  <rect x="30" y="60" width="140" height="100" rx="8" fill="#1f2937" stroke="#6b7280" stroke-width="2"/>
+  <text x="100" y="85" text-anchor="middle" fill="#f3f4f6" font-family="monospace" font-size="12" font-weight="bold">Development</text>
+  <text x="100" y="110" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="9">• Train Model</text>
+  <text x="100" y="128" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="9">• Build Pipeline</text>
+  <text x="100" y="146" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="9">• Validate</text>
+  
+  <!-- Arrow 1 -->
+  <line x1="170" y1="110" x2="210" y2="110" stroke="#4b5563" stroke-width="2"/>
+  <polygon points="210,110 205,105 205,115" fill="#4b5563"/>
+  
+  <!-- Serialization -->
+  <circle cx="250" cy="110" r="35" fill="#1f2937" stroke="#f59e0b" stroke-width="2"/>
+  <text x="250" y="105" text-anchor="middle" fill="#f3f4f6" font-family="monospace" font-size="9">Save as</text>
+  <text x="250" y="120" text-anchor="middle" fill="#fbbf24" font-family="monospace" font-size="10">.pkl</text>
+  
+  <!-- Arrow 2 -->
+  <line x1="285" y1="110" x2="320" y2="110" stroke="#4b5563" stroke-width="2"/>
+  <polygon points="320,110 315,105 315,115" fill="#4b5563"/>
+  
+  <!-- Container -->
+  <rect x="320" y="60" width="140" height="100" rx="8" fill="#1f2937" stroke="#3b82f6" stroke-width="2"/>
+  <text x="390" y="85" text-anchor="middle" fill="#f3f4f6" font-family="monospace" font-size="12" font-weight="bold">Container</text>
+  <text x="390" y="110" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="9">• Docker Image</text>
+  <text x="390" y="128" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="9">• Dependencies</text>
+  <text x="390" y="146" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="9">• API Endpoint</text>
+  
+  <!-- Arrow 3 -->
+  <line x1="460" y1="110" x2="500" y2="110" stroke="#4b5563" stroke-width="2"/>
+  <polygon points="500,110 495,105 495,115" fill="#4b5563"/>
+  
+  <!-- Cloud -->
+  <rect x="500" y="60" width="140" height="100" rx="8" fill="#1e3a5f" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="570" y="85" text-anchor="middle" fill="#f3f4f6" font-family="monospace" font-size="12" font-weight="bold">Cloud</text>
+  <text x="570" y="110" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="9">• AWS/GCP/Azure</text>
+  <text x="570" y="128" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="9">• Auto-scaling</text>
+  <text x="570" y="146" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="9">• Monitoring</text>
+  
+  <!-- Bottom labels -->
+  <text x="100" y="185" text-anchor="middle" fill="#6b7280" font-family="monospace" font-size="9">Local/Notebook</text>
+  <text x="250" y="165" text-anchor="middle" fill="#fbbf24" font-family="monospace" font-size="9">joblib.dump()</text>
+  <text x="390" y="185" text-anchor="middle" fill="#60a5fa" font-family="monospace" font-size="9">Docker Build</text>
+  <text x="570" y="185" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="9">Production</text>
+</svg>

@@ -27,8 +27,8 @@ import ContentCertifications from '../components/ContentCertifications.astro';
         </div>
         <!-- End: Left / upper card -->
 
-        <!-- Start: Right / lower card (yes 4/5 instead of 3/5) -->
-        <div class="w-full md:w-4/5 p-0">
+        <!-- Start: Right / lower card -->
+        <div class="w-full md:w-3/5 p-0">
 
             <!-- Start: Inner wrapper -->
             <div class="min-h-full h-[90vh] flex flex-col overflow-y-scroll">
@@ -144,7 +144,93 @@ import ContentCertifications from '../components/ContentCertifications.astro';
     </main>
     <!-- End: Main Wrapper -->
 
-</Layout>
+<!-- Back to Top Button -->
+<button 
+    id="back-to-top"
+    class="fixed bottom-6 right-6 p-3 bg-gray-800 hover:bg-primary text-white rounded-full shadow-lg border border-gray-600 transition-all duration-300 opacity-0 pointer-events-none z-50"
+    aria-label="Back to top"
+>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+</button>
+
+<script>
+    // Handle URL hash for tab navigation
+    function handleHashNavigation() {
+        const hash = window.location.hash;
+        if (hash) {
+            const tabId = hash.replace('#', '');
+            const tabRadio = document.getElementById(tabId);
+            if (tabRadio && tabRadio.type === 'radio') {
+                tabRadio.checked = true;
+                // Restore scroll position for this tab
+                const savedScroll = sessionStorage.getItem(`scroll-${tabId}`);
+                const contentWrapper = document.querySelector('.overflow-y-scroll');
+                if (contentWrapper && savedScroll) {
+                    setTimeout(() => {
+                        contentWrapper.scrollTop = parseInt(savedScroll);
+                    }, 10);
+                }
+            }
+        }
+    }
+    
+    // Save scroll position when switching tabs
+    function saveScrollPosition() {
+        const contentWrapper = document.querySelector('.overflow-y-scroll');
+        const activeTab = document.querySelector('.tab-radio:checked');
+        if (contentWrapper && activeTab) {
+            sessionStorage.setItem(`scroll-${activeTab.id}`, contentWrapper.scrollTop.toString());
+        }
+    }
+    
+    // Check if this is a page reload
+    const navigationEntries = performance.getEntriesByType && performance.getEntriesByType('navigation');
+    const isReload = navigationEntries && navigationEntries[0] && (navigationEntries[0] as PerformanceNavigationTiming).type === 'reload';
+    
+    if (isReload && window.location.hash) {
+        // Page was reloaded - reset to about page
+        const tab1 = document.getElementById('tab1');
+        if (tab1) tab1.checked = true;
+        // Clear hash from URL without reloading
+        history.replaceState(null, null, window.location.pathname);
+        // Clear saved scroll positions on reload
+        sessionStorage.clear();
+    } else {
+        // Normal navigation - handle hash
+        handleHashNavigation();
+    }
+    
+    // Handle hash changes (e.g., back/forward navigation)
+    window.addEventListener('hashchange', () => {
+        saveScrollPosition();
+        handleHashNavigation();
+    });
+    
+    // Save scroll position before leaving page
+    window.addEventListener('beforeunload', saveScrollPosition);
+    
+    // Back to top button functionality
+    const backToTopBtn = document.getElementById('back-to-top');
+    const contentWrapper = document.querySelector('.overflow-y-scroll');
+    
+    if (backToTopBtn && contentWrapper) {
+        contentWrapper.addEventListener('scroll', () => {
+            if (contentWrapper.scrollTop > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            contentWrapper.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+</script>
 
 <style is:global>
 
