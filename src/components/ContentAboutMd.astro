@@ -10,126 +10,138 @@ if (!about) {
 const { Content } = await about.render();
 ---
 
-<div class="prose prose-invert max-w-none about-content">
+<div class="about-content">
     <Content />
 </div>
 
 <style>
-    /* Main prose styling */
-    .prose {
-        @apply prose-headings:text-white prose-a:text-primary hover:prose-a:underline prose-strong:text-white;
+    .about-content {
+        @apply text-gray-300;
     }
     
-    /* Heading styles */
-    .about-content :global(h1) {
-        @apply text-3xl font-bold text-white mb-6 pb-4 border-b border-gray-700;
+    /* Header Section */
+    .about-content :global(.about-header) {
+        @apply mb-8 pb-6 border-b border-gray-800;
     }
     
-    .about-content :global(h2) {
-        @apply text-xl font-semibold text-white mt-8 mb-4 flex items-center gap-2;
+    .about-content :global(.about-header h1) {
+        @apply text-4xl font-bold text-white mb-2;
     }
     
-    .about-content :global(h2)::before {
-        content: '';
-        @apply w-1 h-6 bg-primary rounded-full;
+    .about-content :global(.tagline) {
+        @apply text-lg text-primary font-medium mb-1;
     }
     
-    .about-content :global(h3) {
-        @apply text-lg font-medium text-gray-200 mt-6 mb-3;
+    .about-content :global(.location) {
+        @apply text-sm text-gray-500;
     }
     
-    /* Intro section */
-    .about-content :global(.intro-section) {
-        @apply text-gray-300 leading-relaxed mb-6;
+    /* Intro */
+    .about-content :global(.about-intro) {
+        @apply text-base leading-relaxed mb-8 text-gray-400;
     }
     
-    .about-content :global(.intro-section p) {
-        @apply mb-4 text-base;
-    }
-    
-    /* Horizontal rule (divider) */
+    /* Section Divider */
     .about-content :global(hr) {
-        @apply border-gray-700 my-8;
+        @apply border-gray-800 my-8;
     }
     
-    /* Skills grid */
-    .about-content :global(.skills-grid) {
+    /* Section Headings */
+    .about-content :global(h2) {
+        @apply text-lg font-semibold text-white mb-4 uppercase tracking-wider;
+    }
+    
+    /* Expertise Grid */
+    .about-content :global(.expertise-grid) {
+        @apply mb-8;
+    }
+    
+    .about-content :global(.expertise-card) {
+        @apply bg-gray-900/50 border border-gray-800 rounded-lg p-5 hover:border-gray-700 transition-colors mb-8;
+    }
+    
+    .about-content :global(.expertise-card:last-child) {
+        @apply mb-0;
+    }
+    
+    .about-content :global(.expertise-card h3) {
+        @apply text-white font-medium mb-3 text-base;
+    }
+    
+    .about-content :global(.expertise-card p) {
+        @apply text-gray-400 text-sm mb-4 leading-relaxed;
+    }
+    
+    .about-content :global(.tools) {
+        @apply text-xs text-primary font-mono;
+    }
+    
+    /* Tech Stack Grid */
+    .about-content :global(.tech-grid) {
+        @apply grid grid-cols-2 md:grid-cols-3 gap-3 mb-8;
+    }
+    
+    .about-content :global(.tech-category) {
+        @apply bg-gray-900/30 border border-gray-800 rounded-lg p-3;
+    }
+    
+    .about-content :global(.tech-category h4) {
+        @apply text-xs text-gray-500 uppercase tracking-wider mb-2 font-medium;
+    }
+    
+    .about-content :global(.tech-item) {
+        @apply inline-block text-xs text-gray-300 bg-gray-800 px-2 py-1 rounded mr-1 mb-1;
+    }
+    
+    /* Working On List */
+    .about-content :global(ul) {
+        @apply space-y-2 mb-8 list-none;
+    }
+    
+    .about-content :global(ul li) {
+        @apply text-gray-400 text-sm pl-4 relative;
+    }
+    
+    .about-content :global(ul li::before) {
+        content: '→';
+        @apply absolute left-0 text-primary;
+    }
+    
+    /* Education Timeline */
+    .about-content :global(.education-timeline) {
         @apply space-y-6;
     }
     
-    .about-content :global(.skills-grid h3) {
-        @apply text-primary font-mono text-sm uppercase tracking-wider mt-0 mb-2;
+    .about-content :global(.education-item) {
+        @apply flex gap-4;
     }
     
-    .about-content :global(.skills-grid p) {
-        @apply text-gray-400 text-sm mb-2;
+    .about-content :global(.edu-year) {
+        @apply text-xs text-primary font-mono w-24 shrink-0 pt-1;
     }
     
-    /* Table styling */
-    .about-content :global(table) {
-        @apply w-full border-collapse my-6 text-sm;
+    .about-content :global(.edu-content) {
+        @apply flex-1;
     }
     
-    .about-content :global(thead) {
-        @apply hidden; /* Hide thead for cleaner look */
+    .about-content :global(.edu-content h4) {
+        @apply text-white font-medium mb-1;
     }
     
-    .about-content :global(tbody tr) {
-        @apply border-b border-gray-800 hover:bg-gray-900/50 transition-colors;
+    .about-content :global(.edu-school) {
+        @apply text-gray-400 text-sm mb-1;
     }
     
-    .about-content :global(td) {
-        @apply py-3 px-2;
+    .about-content :global(.edu-detail) {
+        @apply text-gray-500 text-xs mb-1;
     }
     
-    .about-content :global(td:first-child) {
-        @apply font-medium text-gray-300 w-32;
-    }
-    
-    .about-content :global(td:last-child) {
-        @apply text-gray-400;
-    }
-    
-
-    /* Education section */
-    .about-content :global(h3 + p) {
-        @apply text-gray-300 font-medium;
-    }
-    
-    .about-content :global(h3 + p + p) {
-        @apply text-gray-500 text-sm;
-    }
-    
-    .about-content :global(h3 + p + p + p) {
-        @apply text-gray-400 text-sm italic;
-    }
-    
-    /* Lists */
-    .about-content :global(ul) {
-        @apply space-y-2 my-4;
-    }
-    
-    .about-content :global(li) {
-        @apply text-gray-400;
+    .about-content :global(.edu-subjects) {
+        @apply text-gray-600 text-xs;
     }
     
     /* Links */
     .about-content :global(a) {
-        @apply text-primary hover:underline transition-colors;
-    }
-    
-    /* Blockquotes */
-    .about-content :global(blockquote) {
-        @apply border-l-4 border-primary pl-4 italic text-gray-400 my-6;
-    }
-    
-    /* Code inline */
-    .about-content :global(code) {
-        @apply bg-gray-800 text-primary px-1.5 py-0.5 rounded text-sm font-mono;
-    }
-    
-    /* Paragraph spacing */
-    .about-content :global(p) {
-        @apply text-gray-400 leading-relaxed mb-4;
+        @apply text-primary hover:underline;
     }
 </style>
