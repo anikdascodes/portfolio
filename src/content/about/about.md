@@ -4,52 +4,68 @@ title: "About"
 
 # About
 
-I'm Anik Das, a Data Science student from Kolkata, India. I work with data to find patterns and build useful things with code.
+<div class="intro-section">
 
-Currently pursuing my BSc in Data Science at Calcutta Institute of Science and Management. I spend most of my time writing Python, training models, and figuring out how to make AI systems actually useful.
+I'm **Anik Das**, a Data Science student from Kolkata, India. I work with data to find patterns and build useful things with code.
+
+Currently pursuing my BSc in Data Science at Calcutta Institute of Science and Management, affiliated with MAKAUT, West Bengal.
+
+</div>
+
+---
 
 ## What I Do
 
-**Data & ML**
-- Building predictive models and data pipelines
-- Working with Pandas, Scikit-learn, and SQL
-- Creating visualizations that tell clear stories
+<div class="skills-grid">
 
-**AI Development**
-- Building apps with LLMs and LangChain
-- Working on RAG systems and AI agents
-- Experimenting with GenAI tools
+### Data & Machine Learning
+Building predictive models, analyzing datasets, and creating visualizations that tell stories.
 
-**Full Stack**
-- FastAPI and Streamlit for backends
-- React basics for frontend
-- Docker for deployment
+**Tools:** Python, Pandas, NumPy, Scikit-learn, TensorFlow, SQL
 
-## Currently Working On
+### AI Development  
+Building apps with LLMs, creating RAG systems, and experimenting with AI agents.
 
-A terminal-based AI dev agent for automating file operations and building full-stack apps. Also exploring ML pipelines and NLP applications.
+**Tools:** LangChain, OpenAI API, Hugging Face, Vector DBs
 
-## Education
+### Full Stack Development
+Building APIs and web interfaces for data applications.
 
-**BSc Data Science** — Calcutta Institute of Science And Management  
-2022 – Present (3rd Year)
+**Tools:** FastAPI, Streamlit, React, Docker, Git
 
-Affiliated to Maulana Abul Kalam Azad University of Technology, West Bengal
+</div>
+
+---
 
 ## Tech Stack
 
-```
-Python | Pandas | NumPy | Scikit-learn | TensorFlow
-LangChain | OpenAI API | FastAPI | Streamlit
-PostgreSQL | Neo4j | Docker | Git | Linux
-```
+| Category | Technologies |
+|----------|-------------|
+| **Languages** | Python, SQL, JavaScript |
+| **ML/Data** | Pandas, NumPy, Scikit-learn, TensorFlow, PyTorch |
+| **AI/LLM** | LangChain, OpenAI, Hugging Face, Pinecone |
+| **Backend** | FastAPI, Flask, PostgreSQL, Neo4j |
+| **Frontend** | React, Astro, Tailwind CSS, Streamlit |
+| **DevOps** | Docker, Git, Linux, AWS Basics |
 
-## Contact
+---
 
-- [GitHub](https://github.com/anikdascodes)
-- [X / Twitter](https://x.com/AnikCodes)
-- [LinkedIn](https://www.linkedin.com/in/anikdascodes/)
-- [Kaggle](https://www.kaggle.com/anik0012)
-- [Email](mailto:anik.das.data.science@gmail.com)
+## Currently Working On
 
-Always open to collaborating on interesting data science or AI projects.
+- Terminal-based AI Dev Agent for automated file operations
+- ML pipeline optimization projects
+- NLP applications and text analysis tools
+
+---
+
+## Education
+
+### BSc in Data Science
+**Calcutta Institute of Science And Management**  
+2022 – Present (3rd Year)  
+Affiliated to MAKAUT, West Bengal
+
+### Higher Secondary (Science)
+**Gournagar High School**  
+2022 — West Bengal Council of Higher Secondary Education  
+Subjects: Physics, Chemistry, Mathematics, Computer Science

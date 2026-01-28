@@ -10,12 +10,126 @@ if (!about) {
 const { Content } = await about.render();
 ---
 
-<div class="prose prose-invert max-w-none">
+<div class="prose prose-invert max-w-none about-content">
     <Content />
 </div>
 
 <style>
+    /* Main prose styling */
     .prose {
         @apply prose-headings:text-white prose-a:text-primary hover:prose-a:underline prose-strong:text-white;
+    }
+    
+    /* Heading styles */
+    .about-content :global(h1) {
+        @apply text-3xl font-bold text-white mb-6 pb-4 border-b border-gray-700;
+    }
+    
+    .about-content :global(h2) {
+        @apply text-xl font-semibold text-white mt-8 mb-4 flex items-center gap-2;
+    }
+    
+    .about-content :global(h2)::before {
+        content: '';
+        @apply w-1 h-6 bg-primary rounded-full;
+    }
+    
+    .about-content :global(h3) {
+        @apply text-lg font-medium text-gray-200 mt-6 mb-3;
+    }
+    
+    /* Intro section */
+    .about-content :global(.intro-section) {
+        @apply text-gray-300 leading-relaxed mb-6;
+    }
+    
+    .about-content :global(.intro-section p) {
+        @apply mb-4 text-base;
+    }
+    
+    /* Horizontal rule (divider) */
+    .about-content :global(hr) {
+        @apply border-gray-700 my-8;
+    }
+    
+    /* Skills grid */
+    .about-content :global(.skills-grid) {
+        @apply space-y-6;
+    }
+    
+    .about-content :global(.skills-grid h3) {
+        @apply text-primary font-mono text-sm uppercase tracking-wider mt-0 mb-2;
+    }
+    
+    .about-content :global(.skills-grid p) {
+        @apply text-gray-400 text-sm mb-2;
+    }
+    
+    /* Table styling */
+    .about-content :global(table) {
+        @apply w-full border-collapse my-6 text-sm;
+    }
+    
+    .about-content :global(thead) {
+        @apply hidden; /* Hide thead for cleaner look */
+    }
+    
+    .about-content :global(tbody tr) {
+        @apply border-b border-gray-800 hover:bg-gray-900/50 transition-colors;
+    }
+    
+    .about-content :global(td) {
+        @apply py-3 px-2;
+    }
+    
+    .about-content :global(td:first-child) {
+        @apply font-medium text-gray-300 w-32;
+    }
+    
+    .about-content :global(td:last-child) {
+        @apply text-gray-400;
+    }
+    
+
+    /* Education section */
+    .about-content :global(h3 + p) {
+        @apply text-gray-300 font-medium;
+    }
+    
+    .about-content :global(h3 + p + p) {
+        @apply text-gray-500 text-sm;
+    }
+    
+    .about-content :global(h3 + p + p + p) {
+        @apply text-gray-400 text-sm italic;
+    }
+    
+    /* Lists */
+    .about-content :global(ul) {
+        @apply space-y-2 my-4;
+    }
+    
+    .about-content :global(li) {
+        @apply text-gray-400;
+    }
+    
+    /* Links */
+    .about-content :global(a) {
+        @apply text-primary hover:underline transition-colors;
+    }
+    
+    /* Blockquotes */
+    .about-content :global(blockquote) {
+        @apply border-l-4 border-primary pl-4 italic text-gray-400 my-6;
+    }
+    
+    /* Code inline */
+    .about-content :global(code) {
+        @apply bg-gray-800 text-primary px-1.5 py-0.5 rounded text-sm font-mono;
+    }
+    
+    /* Paragraph spacing */
+    .about-content :global(p) {
+        @apply text-gray-400 leading-relaxed mb-4;
     }
 </style>
