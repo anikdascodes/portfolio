@@ -14,7 +14,7 @@ export async function GET(context) {
 
     return rss({
         // RSS Feed Title
-        title: 'Anik Das | Data Science & AI Blog',
+        title: 'Anik Das',
         // RSS Feed Description
         description: 'Articles on Data Science, Machine Learning, Python, and Generative AI by Anik Das.',
         // Site URL
@@ -37,7 +37,7 @@ export async function GET(context) {
 <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 <image>
     <url>https://devidev.io/img/meta.png</url>
-    <title>Anik Das | Data Science & AI Blog</title>
+    <title>Anik Das</title>
     <link>https://devidev.io</link>
 </image>`,
         stylesheet: '/rss/styles.xsl',
