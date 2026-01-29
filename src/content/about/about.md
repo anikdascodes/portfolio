@@ -4,12 +4,12 @@ title: "About"
 
 <div class="about-header">
   <h1>Anik Das</h1>
-  <p class="tagline">Data Science Student & AI Developer</p>
+  <p class="tagline">MSc Data Science & AI Student</p>
   <p class="location">Kolkata, India</p>
 </div>
 
 <div class="about-intro">
-  <p>I work with data to find patterns and build useful things with code. Currently pursuing my BSc in Data Science at Calcutta Institute of Science and Management, affiliated with MAKAUT, West Bengal.</p>
+  <p>I work with data to find patterns and build useful things with code. Completed BSc in Data Science from MAKAUT (2025), currently pursuing MSc in Data Science and AI from BITS Pilani (Digital).</p>
 </div>
 
 ---
@@ -109,11 +109,20 @@ title: "About"
 <div class="education-timeline">
 
 <div class="education-item">
-  <div class="edu-year">2022 – Present</div>
+  <div class="edu-year">2025 – Present</div>
+  <div class="edu-content">
+    <h4>MSc in Data Science and AI</h4>
+    <p class="edu-school">BITS Pilani (Digital)</p>
+    <p class="edu-detail">Postgraduate Program</p>
+  </div>
+</div>
+
+<div class="education-item">
+  <div class="edu-year">2022 – 2025</div>
   <div class="edu-content">
     <h4>BSc in Data Science</h4>
     <p class="edu-school">Calcutta Institute of Science And Management</p>
-    <p class="edu-detail">Affiliated to MAKAUT, West Bengal • 3rd Year</p>
+    <p class="edu-detail">Affiliated to MAKAUT, West Bengal • Completed July 2025</p>
   </div>
 </div>
 
