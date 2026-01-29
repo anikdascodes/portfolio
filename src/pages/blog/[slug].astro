@@ -44,7 +44,7 @@ const {
 } = post.data;
 
 // Build OG image URL - use featured image if available, otherwise default
-const ogImageUrl = featuredImage ? `https://devidev.io/content/blogs/${post.slug}/${featuredImage}` : undefined;
+const ogImageUrl = featuredImage ? `https://anikdascodes.netlify.app/content/blogs/${post.slug}/${featuredImage}` : undefined;
 
 function formatDate(date: Date) {
     return date.toLocaleDateString('en-US', {
@@ -216,7 +216,7 @@ const readingTime = getReadingTime(post.body);
                     <div class="flex items-center gap-2">
                         <span class="text-sm text-gray-400">Share:</span>
                         <a 
-                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(`https://devidev.io/blog/${post.slug}/`)}`}
+                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(`https://anikdascodes.netlify.app/blog/${post.slug}/`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             class="p-2 rounded-lg border border-gray-600 hover:text-primary hover:border-primary transition-colors"
@@ -227,7 +227,7 @@ const readingTime = getReadingTime(post.body);
                             </svg>
                         </a>
                         <a 
-                            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://devidev.io/blog/${post.slug}/`)}`}
+                            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://anikdascodes.netlify.app/blog/${post.slug}/`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             class="p-2 rounded-lg border border-gray-600 hover:text-primary hover:border-primary transition-colors"

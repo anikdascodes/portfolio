@@ -36,9 +36,9 @@ export async function GET(context) {
 <copyright>Copyright ${new Date().getFullYear()} Anik Das</copyright>
 <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 <image>
-    <url>https://devidev.io/img/meta.png</url>
+    <url>https://anikdascodes.netlify.app/img/meta.png</url>
     <title>Anik Das</title>
-    <link>https://devidev.io</link>
+    <link>https://anikdascodes.netlify.app</link>
 </image>`,
         stylesheet: '/rss/styles.xsl',
     });
