@@ -261,7 +261,7 @@ Let's see how all these records work together for a real website:
 
 ### Example: Complete DNS for example.com
 
-```dns
+```text
 ; Name Servers - Who manages this domain
 example.com.         NS      ns1.cloudprovider.com.
 example.com.         NS      ns2.cloudprovider.com.

@@ -71,28 +71,34 @@ import ContentCertifications from '../components/ContentCertifications.astro';
                     />
 
                     <!-- Start: Tab bar -->
-                    <div class="flex bg-black border-b border-gray-600 sticky top-0 z-10">
+                    <div class="tab-list flex bg-black border-b border-gray-600 sticky top-0 z-10" role="tablist" aria-label="Portfolio sections">
 
                         <ContentLink
                             contentId="tab1"
+                            panelId="content1"
                             contentName="about.md"
+                            selected={true}
                         />
 
                         <ContentLink
                             contentId="tab2"
+                            panelId="content2"
                             contentName="projects.md"
                         />
 
                         <ContentLink
                             contentId="tab3"
+                            panelId="content3"
                             contentName="blogs.md"
                         />
                         <ContentLink
                             contentId="tab4"
+                            panelId="content4"
                             contentName="resume"
                         />
                         <ContentLink
                             contentId="tab5"
+                            panelId="content5"
                             contentName="education"
                         />
 
@@ -103,29 +109,29 @@ import ContentCertifications from '../components/ContentCertifications.astro';
                     <div class="p-6 flex-grow overflow-y-auto bg-black relative">
 
                         <!-- Start: About content -->
-                        <div id="content1" class="tab-content">
+                        <div id="content1" class="tab-content" role="tabpanel" aria-labelledby="tab1-label" aria-hidden="false" tabindex="0" data-tab-panel="tab1">
                             <ContentAboutMd />
                         </div>
                         <!-- End: About content -->
 
                         <!-- Start: Projects content -->
-                        <div id="content2" class="tab-content">
+                        <div id="content2" class="tab-content" role="tabpanel" aria-labelledby="tab2-label" aria-hidden="true" tabindex="0" data-tab-panel="tab2">
                             <ContentProjects />
                         </div>
                         <!-- End: Projects content -->
 
                         <!-- Start: Blogs content -->
-                        <div id="content3" class="tab-content">
+                        <div id="content3" class="tab-content" role="tabpanel" aria-labelledby="tab3-label" aria-hidden="true" tabindex="0" data-tab-panel="tab3">
                             <ContentBlogs />
                         </div>
                         <!-- End: Blogs content -->
                         <!-- Start: Resume content -->
-                        <div id="content4" class="tab-content h-full flex flex-col">
+                        <div id="content4" class="tab-content h-full flex flex-col" role="tabpanel" aria-labelledby="tab4-label" aria-hidden="true" tabindex="0" data-tab-panel="tab4">
                             <ContentResume />
                         </div>
                         <!-- End: Resume content -->
                         <!-- Start: Certifications content -->
-                        <div id="content5" class="tab-content">
+                        <div id="content5" class="tab-content" role="tabpanel" aria-labelledby="tab5-label" aria-hidden="true" tabindex="0" data-tab-panel="tab5">
                             <ContentCertifications />
                         </div>
                         <!-- End: Certifications content -->
@@ -156,14 +162,61 @@ import ContentCertifications from '../components/ContentCertifications.astro';
 </button>
 
 <script>
+    const tabRadios = Array.from(document.querySelectorAll('.tab-radio'));
+    const tabLinks = Array.from(document.querySelectorAll('.tab-link'));
+    const tabPanels = Array.from(document.querySelectorAll('[data-tab-panel]'));
+
+    function getActiveTabId() {
+        return (document.querySelector('.tab-radio:checked') as HTMLInputElement | null)?.id || 'tab1';
+    }
+
+    function loadLazyMedia(tabId) {
+        const activePanel = document.querySelector(`[data-tab-panel="${tabId}"]`);
+        if (!activePanel) return;
+
+        activePanel.querySelectorAll('[data-lazy-src]').forEach((element) => {
+            if (!element.getAttribute('src')) {
+                element.setAttribute('src', element.getAttribute('data-lazy-src'));
+            }
+        });
+    }
+
+    function syncTabs() {
+        const selectedTabId = getActiveTabId();
+
+        tabLinks.forEach((tabLink) => {
+            const isSelected = tabLink.getAttribute('for') === selectedTabId;
+            tabLink.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+            tabLink.setAttribute('tabindex', isSelected ? '0' : '-1');
+        });
+
+        tabPanels.forEach((panel) => {
+            const isSelected = panel.getAttribute('data-tab-panel') === selectedTabId;
+            panel.setAttribute('aria-hidden', isSelected ? 'false' : 'true');
+        });
+
+        loadLazyMedia(selectedTabId);
+    }
+
+    function selectTab(tabId) {
+        if (!tabId) return;
+        const tabRadio = document.getElementById(tabId) as HTMLInputElement | null;
+        if (tabRadio && tabRadio.type === 'radio') {
+            saveScrollPosition();
+            tabRadio.checked = true;
+            syncTabs();
+        }
+    }
+
     // Handle URL hash for tab navigation
     function handleHashNavigation() {
         const hash = window.location.hash;
         if (hash) {
             const tabId = hash.replace('#', '');
-            const tabRadio = document.getElementById(tabId);
+            const tabRadio = document.getElementById(tabId) as HTMLInputElement | null;
             if (tabRadio && tabRadio.type === 'radio') {
                 tabRadio.checked = true;
+                syncTabs();
                 // Restore scroll position for this tab
                 const savedScroll = sessionStorage.getItem(`scroll-${tabId}`);
                 const contentWrapper = document.querySelector('.overflow-y-scroll');
@@ -191,8 +244,9 @@ import ContentCertifications from '../components/ContentCertifications.astro';
     
     if (isReload && window.location.hash) {
         // Page was reloaded - reset to about page
-        const tab1 = document.getElementById('tab1');
+        const tab1 = document.getElementById('tab1') as HTMLInputElement | null;
         if (tab1) tab1.checked = true;
+        syncTabs();
         // Clear hash from URL without reloading
         history.replaceState(null, null, window.location.pathname);
         // Clear saved scroll positions on reload
@@ -201,6 +255,39 @@ import ContentCertifications from '../components/ContentCertifications.astro';
         // Normal navigation - handle hash
         handleHashNavigation();
     }
+
+    tabRadios.forEach((radio) => {
+        radio.addEventListener('change', syncTabs);
+    });
+
+    tabLinks.forEach((tabLink, index) => {
+        tabLink.addEventListener('keydown', (event) => {
+            const key = event.key;
+            const lastIndex = tabLinks.length - 1;
+            let nextIndex = index;
+
+            if (key === 'ArrowRight' || key === 'ArrowDown') {
+                nextIndex = index === lastIndex ? 0 : index + 1;
+            } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
+                nextIndex = index === 0 ? lastIndex : index - 1;
+            } else if (key === 'Home') {
+                nextIndex = 0;
+            } else if (key === 'End') {
+                nextIndex = lastIndex;
+            } else if (key === 'Enter' || key === ' ') {
+                event.preventDefault();
+                selectTab(tabLink.getAttribute('for'));
+                return;
+            } else {
+                return;
+            }
+
+            event.preventDefault();
+            const nextTab = tabLinks[nextIndex];
+            selectTab(nextTab.getAttribute('for'));
+            nextTab.focus();
+        });
+    });
     
     // Handle hash changes (e.g., back/forward navigation)
     window.addEventListener('hashchange', () => {
@@ -210,6 +297,7 @@ import ContentCertifications from '../components/ContentCertifications.astro';
     
     // Save scroll position before leaving page
     window.addEventListener('beforeunload', saveScrollPosition);
+    syncTabs();
     
     // Back to top button functionality
     const backToTopBtn = document.getElementById('back-to-top');
@@ -256,7 +344,7 @@ import ContentCertifications from '../components/ContentCertifications.astro';
         @apply block opacity-100;
     }
 
-    #tab1:checked ~ .flex .tab-link:nth-child(1) {
+    #tab1:checked ~ .tab-list .tab-link:nth-child(1) {
         @apply border-b-2 border-b-primary;
     }
 
@@ -265,7 +353,7 @@ import ContentCertifications from '../components/ContentCertifications.astro';
         @apply block opacity-100;
     }
 
-    #tab2:checked ~ .flex .tab-link:nth-child(2) {
+    #tab2:checked ~ .tab-list .tab-link:nth-child(2) {
         @apply border-b-2 border-b-primary;
     }
 
@@ -274,7 +362,7 @@ import ContentCertifications from '../components/ContentCertifications.astro';
         @apply block opacity-100;
     }
 
-    #tab3:checked ~ .flex .tab-link:nth-child(3) {
+    #tab3:checked ~ .tab-list .tab-link:nth-child(3) {
         @apply border-b-2 border-b-primary;
     }
 
@@ -283,7 +371,7 @@ import ContentCertifications from '../components/ContentCertifications.astro';
         @apply block opacity-100;
     }
 
-    #tab4:checked ~ .flex .tab-link:nth-child(4) {
+    #tab4:checked ~ .tab-list .tab-link:nth-child(4) {
         @apply border-b-2 border-b-primary;
     }
 
@@ -292,7 +380,7 @@ import ContentCertifications from '../components/ContentCertifications.astro';
         @apply block opacity-100;
     }
 
-    #tab5:checked ~ .flex .tab-link:nth-child(5) {
+    #tab5:checked ~ .tab-list .tab-link:nth-child(5) {
         @apply border-b-2 border-b-primary;
     }
 

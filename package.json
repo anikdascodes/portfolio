@@ -3,24 +3,24 @@
     "type": "module",
     "version": "1.0.0",
     "scripts": {
-        "dev": "astro dev",
-        "build": "astro build && node scripts/copy-blog-assets.js",
-        "preview": "astro preview",
-        "astro": "astro",
+        "dev": "node scripts/astro.mjs dev",
+        "build": "node scripts/astro.mjs build && node scripts/copy-blog-assets.js",
+        "build:portable": "node scripts/portable-build.mjs",
+        "preview": "node scripts/astro.mjs preview",
+        "astro": "node scripts/astro.mjs",
         "copy-assets": "node scripts/copy-blog-assets.js"
     },
     "dependencies": {
-        "astro": "^5.4.2",
-        "shiki": "^3.1.0",
+        "astro": "^6.3.7",
         "swetrix": "^3.5.4",
         "tailwindcss": "^3.4.17"
     },
     "devDependencies": {
-        "@astrojs/rss": "^4.0.11",
-        "@astrojs/sitemap": "^3.2.1",
-        "@astrojs/tailwind": "^5.1.4",
+        "@astrojs/rss": "^4.0.18",
+        "@astrojs/sitemap": "^3.7.2",
         "@tailwindcss/typography": "^0.5.16",
         "astro-compress": "^2.3.6",
+        "autoprefixer": "^10.5.0",
         "sass": "^1.85.1"
     }
 }

@@ -2,16 +2,25 @@
 interface Props {
     contentId: string;
     contentName: string;
+    panelId: string;
+    selected?: boolean;
 };
 
 const {
     contentId,
     contentName,
+    panelId,
+    selected = false,
 } = Astro.props as Props;
 ---
 
 <label
+    id={`${contentId}-label`}
     for={contentId}
+    role="tab"
+    aria-controls={panelId}
+    aria-selected={selected ? 'true' : 'false'}
+    tabindex={selected ? '0' : '-1'}
     class={[
         "tab-link",
 

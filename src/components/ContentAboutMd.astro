@@ -1,5 +1,5 @@
 ---
-import { getEntry } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 
 const about = await getEntry('about', 'about');
 
@@ -7,7 +7,7 @@ if (!about) {
     throw new Error('About content not found');
 }
 
-const { Content } = await about.render();
+const { Content } = await render(about);
 ---
 
 <div class="about-content">

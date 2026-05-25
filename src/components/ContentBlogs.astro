@@ -27,9 +27,13 @@ function getExcerpt(blog: any): string {
     return blog.body.slice(0, 150).replace(/[#*`|]/g, '') + '...';
 }
 
+function getSlug(blog: any): string {
+    return blog.slug || blog.id.replace(/\/index$/, '');
+}
+
 // Prepare search index for client-side search
 const searchIndex = sortedBlogs.map(blog => ({
-    slug: blog.slug,
+    slug: getSlug(blog),
     title: blog.data.title,
     description: blog.data.description || '',
     tags: blog.data.tags || [],
@@ -43,13 +47,13 @@ const totalPosts = sortedBlogs.length;
 const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/).length, 0);
 ---
 
-<div class="blog-container">
+<div class="blog-container" data-blog-search>
     <!-- Search Section -->
     <div class="search-section mb-6">
         <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
             </div>
             <input
@@ -64,10 +68,10 @@ const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/
         </div>
         
         <!-- Active Search Display -->
-        <div id="active-search" class="hidden mt-3 flex items-center gap-2">
+        <div class="active-search hidden mt-3 flex items-center gap-2">
             <span class="text-sm text-gray-400">Search results for:</span>
-            <span id="search-term" class="px-3 py-1 text-sm bg-primary/20 text-primary rounded-full border border-primary/30"></span>
-            <button id="clear-search" class="text-sm text-gray-400 hover:text-white underline">Clear</button>
+            <span class="search-term px-3 py-1 text-sm bg-primary/20 text-primary rounded-full border border-primary/30"></span>
+            <button class="clear-search text-sm text-gray-400 hover:text-white underline">Clear</button>
         </div>
     </div>
 
@@ -76,13 +80,13 @@ const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/
         <div class="flex gap-4">
             <span class="flex items-center gap-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                 </svg>
                 <span id="posts-count">{totalPosts}</span> <span id="posts-label">{totalPosts === 1 ? 'post' : 'posts'}</span>
             </span>
             <span class="flex items-center gap-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                 </svg>
                 {Math.round(totalWords / 1000)}k+ words
             </span>
@@ -96,9 +100,9 @@ const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/
     </div>
 
     <!-- No Results Message -->
-    <div id="no-results" class="hidden border border-gray-700 rounded-lg p-8 bg-black text-center">
+    <div class="no-results hidden border border-gray-700 rounded-lg p-8 bg-black text-center">
         <svg class="w-12 h-12 mx-auto mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>
         <p class="text-gray-400 mb-2">No blogs found matching your search.</p>
         <p class="text-gray-500 text-sm">Try different keywords or clear the search.</p>
@@ -107,13 +111,13 @@ const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/
     <!-- Blog List -->
     <div id="blog-list" class="space-y-6">
         {sortedBlogs.map((blog) => (
-            <article class="blog-item border border-gray-700 rounded-lg p-5 bg-black hover:border-gray-500 transition-colors group" data-slug={blog.slug}>
+            <article class="blog-item border border-gray-700 rounded-lg p-5 bg-black hover:border-gray-500 transition-colors group" data-slug={getSlug(blog)}>
                 <div class="flex flex-col gap-3">
                     <h2 class="blog-title text-xl font-bold text-white group-hover:text-primary transition-colors">
-                        <a href={`/blog/${blog.slug}/`} target="_blank" rel="noopener noreferrer">
-                            {blog.data.title}
+                        <a href={`/blog/${getSlug(blog)}/`} target="_blank" rel="noopener noreferrer">
+                            <span class="blog-title-text">{blog.data.title}</span>
                             {blog.data.draft && (
-                                <span class="ml-2 text-xs bg-yellow-900 text-yellow-200 px-2 py-0.5 rounded">DRAFT</span>
+                                <span class="draft-badge ml-2 text-xs bg-yellow-900 text-yellow-200 px-2 py-0.5 rounded">DRAFT</span>
                             )}
                         </a>
                     </h2>
@@ -121,21 +125,21 @@ const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/
                     <div class="flex flex-wrap items-center gap-4 text-xs text-gray-400">
                         <time datetime={blog.data.publishDate.toISOString()} class="flex items-center gap-1">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
                             {formatDate(blog.data.publishDate)}
                         </time>
                         
                         <span class="flex items-center gap-1">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                             {getReadingTime(blog.body)} min read
                         </span>
                         
                         <span class="flex items-center gap-1">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
                             {blog.data.author}
                         </span>
@@ -151,10 +155,10 @@ const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/
                         </div>
                     )}
                     
-                    <a href={`/blog/${blog.slug}/`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-1">
+                    <a href={`/blog/${getSlug(blog)}/`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-primary hover:underline mt-1">
                         Read Article
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
                     </a>
                 </div>
@@ -166,16 +170,17 @@ const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/
 <script define:vars={{ searchIndex: JSON.stringify(searchIndex), totalPosts }}>
     // Parse the search index
     const blogs = JSON.parse(searchIndex);
+    const root = document.querySelector('[data-blog-search]') as HTMLElement;
     
     // DOM Elements
-    const searchInput = document.getElementById('blog-search');
-    const blogList = document.getElementById('blog-list');
-    const noResults = document.getElementById('no-results');
-    const activeSearch = document.getElementById('active-search');
-    const searchTermDisplay = document.getElementById('search-term');
-    const clearSearchBtn = document.getElementById('clear-search');
-    const postsCount = document.getElementById('posts-count');
-    const postsLabel = document.getElementById('posts-label');
+    const searchInput = root.querySelector('#blog-search');
+    const blogList = root.querySelector('#blog-list');
+    const noResults = root.querySelector('.no-results');
+    const activeSearch = root.querySelector('.active-search');
+    const searchTermDisplay = root.querySelector('.search-term');
+    const clearSearchBtn = root.querySelector('.clear-search');
+    const postsCount = root.querySelector('#posts-count');
+    const postsLabel = root.querySelector('#posts-label');
     
     let currentSearch = '';
     
@@ -218,7 +223,7 @@ const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/
     
     // Highlight matching text
     function highlightText(item, blog, query) {
-        const titleEl = item.querySelector('.blog-title a');
+        const titleEl = item.querySelector('.blog-title-text');
         const descEl = item.querySelector('.blog-description');
         
         if (titleEl && blog.title.toLowerCase().includes(query)) {
@@ -233,11 +238,11 @@ const totalWords = sortedBlogs.reduce((acc, blog) => acc + blog.body.split(/\s+/
     
     // Reset highlight
     function resetHighlight(item, blog) {
-        const titleEl = item.querySelector('.blog-title a');
+        const titleEl = item.querySelector('.blog-title-text');
         const descEl = item.querySelector('.blog-description');
         
         if (titleEl) {
-            titleEl.innerHTML = blog.title + (item.querySelector('.draft-badge') ? ' <span class="ml-2 text-xs bg-yellow-900 text-yellow-200 px-2 py-0.5 rounded">DRAFT</span>' : '');
+            titleEl.textContent = blog.title;
         }
         if (descEl) {
             descEl.textContent = blog.excerpt;

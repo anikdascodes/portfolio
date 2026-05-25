@@ -1,11 +1,15 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
+function getSlug(post: any): string {
+    return post.slug || post.id.replace(/\/index$/, '');
+}
 
 export async function getStaticPaths() {
     try {
         const posts = await getCollection('blogs');
+        const getPostSlug = (post: any) => post.slug || post.id.replace(/\/index$/, '');
         // Filter out drafts in production
         const publishedPosts = import.meta.env.PROD 
             ? posts.filter(post => !post.data.draft)
@@ -13,7 +17,7 @@ export async function getStaticPaths() {
             
         return publishedPosts.map(post => {
             return {
-                params: { slug: post.slug },
+                params: { slug: getPostSlug(post) },
                 props: { post },
             };
         });
@@ -24,13 +28,14 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const postSlug = getSlug(post);
 
 // Handle case where post doesn't exist
 if (!post) {
     return Astro.redirect('/');
 }
 
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 // Extract data for SEO
 const { 
@@ -43,8 +48,8 @@ const {
     canonicalURL 
 } = post.data;
 
-// Build OG image URL - use featured image if available, otherwise default
-const ogImageUrl = featuredImage ? `https://anikdascodes.netlify.app/content/blogs/${post.slug}/${featuredImage}` : undefined;
+// Blog assets are copied to /blog/<slug>/ after the Astro build.
+const featuredImageUrl = featuredImage ? featuredImage.src : undefined;
 
 function formatDate(date: Date) {
     return date.toLocaleDateString('en-US', {
@@ -68,7 +73,7 @@ const readingTime = getReadingTime(post.body);
     title={title}
     description={description}
     ogType="article"
-    ogImage={ogImageUrl}
+    ogImage={featuredImageUrl}
     canonicalURL={canonicalURL}
     publishDate={publishDate}
     author={author}
@@ -147,7 +152,7 @@ const readingTime = getReadingTime(post.body);
             {featuredImage && (
                 <figure class="mb-8">
                     <img 
-                        src={`/content/blogs/${post.slug}/${featuredImage}`}
+                        src={featuredImageUrl}
                         alt={`Featured image for ${title}`}
                         class="w-full h-auto rounded-lg border border-gray-700"
                         loading="eager"
@@ -216,7 +221,7 @@ const readingTime = getReadingTime(post.body);
                     <div class="flex items-center gap-2">
                         <span class="text-sm text-gray-400">Share:</span>
                         <a 
-                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(`https://anikdascodes.netlify.app/blog/${post.slug}/`)}`}
+                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(`https://anikdascodes.netlify.app/blog/${postSlug}/`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             class="p-2 rounded-lg border border-gray-600 hover:text-primary hover:border-primary transition-colors"
@@ -227,7 +232,7 @@ const readingTime = getReadingTime(post.body);
                             </svg>
                         </a>
                         <a 
-                            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://anikdascodes.netlify.app/blog/${post.slug}/`)}`}
+                            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://anikdascodes.netlify.app/blog/${postSlug}/`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             class="p-2 rounded-lg border border-gray-600 hover:text-primary hover:border-primary transition-colors"

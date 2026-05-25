@@ -35,6 +35,10 @@ const domainBaseURL = 'https://anikdascodes.netlify.app';
 const siteName = 'Anik Das';
 const defaultOgImage = '/img/meta.png';
 
+function toAbsoluteUrl(value: string) {
+    return new URL(value, domainBaseURL).toString();
+}
+
 // Website publisher & region
 const authorPublisher = author || 'Anik Das';
 const geoRegion = 'IN';
@@ -48,8 +52,8 @@ const defaultKeywords = 'Data Science, Machine Learning, Python, Generative AI, 
 const seoTitle = title ? `${title} | ${siteName}` : defaultTitle;
 const seoDescription = description || defaultDescription;
 const seoKeywords = keywords || defaultKeywords;
-const seoOgImage = ogImage || defaultOgImage;
-const pageUrl = canonicalURL || `${domainBaseURL}${Astro.url.pathname}`;
+const seoOgImage = toAbsoluteUrl(ogImage || defaultOgImage);
+const pageUrl = canonicalURL ? toAbsoluteUrl(canonicalURL) : toAbsoluteUrl(Astro.url.pathname);
 
 // Twitter card data
 const twitter = {
@@ -92,7 +96,7 @@ const articleSchema = ogType === 'article' ? {
     '@type': 'BlogPosting',
     headline: title,
     description: seoDescription,
-    image: `${domainBaseURL}${seoOgImage}`,
+    image: seoOgImage,
     url: pageUrl,
     datePublished: publishDate?.toISOString(),
     dateModified: modifiedDate?.toISOString() || publishDate?.toISOString(),

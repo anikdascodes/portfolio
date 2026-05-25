@@ -21,7 +21,8 @@ export async function GET(context) {
         site: context.site,
         // List of items
         items: sortedPosts.map((post) => {
-            const postUrl = `/blog/${post.slug}/`;
+            const slug = post.slug || post.id.replace(/\/index$/, '');
+            const postUrl = `/blog/${slug}/`;
             return {
                 title: post.data.title,
                 pubDate: post.data.publishDate,
@@ -39,7 +40,6 @@ export async function GET(context) {
     <url>https://anikdascodes.netlify.app/img/meta.png</url>
     <title>Anik Das</title>
     <link>https://anikdascodes.netlify.app</link>
-</image>`,
-        stylesheet: '/rss/styles.xsl',
+        </image>`,
     });
 }
