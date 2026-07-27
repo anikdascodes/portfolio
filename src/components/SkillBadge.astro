@@ -1,0 +1,27 @@
+---
+import Icons from './Icons.astro';
+
+interface Props {
+  name: string;
+  category: string;
+  iconName: string;
+  proficiency: string;
+}
+
+const { name, category, iconName, proficiency } = Astro.props;
+---
+
+<div class="p-3.5 rounded-lg bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 flex items-center gap-3 hover:border-stone-400 dark:hover:border-stone-600 transition-all shadow-xs">
+  <div class="w-8 h-8 rounded bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 flex items-center justify-center text-stone-700 dark:text-stone-300 shrink-0">
+    <Icons name={iconName} class="w-4 h-4" />
+  </div>
+
+  <div class="min-w-0 flex-1">
+    <div class="text-sm font-bold text-stone-900 dark:text-white truncate font-sans">{name}</div>
+    <div class="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 font-mono mt-0.5">
+      <span class="capitalize">{category}</span>
+      <span>•</span>
+      <span class="text-amber-800 dark:text-amber-400">{proficiency}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+{
+  "degree": "AWS Certified Solutions Architect",
+  "institution": "Amazon Web Services",
+  "fieldOfStudy": "Cloud Architecture & Infrastructure Management",
+  "period": "2023 - Present",
+  "logoUrl": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=200&auto=format&fit=crop",
+  "description": "Certified expertise in designing high-availability, fault-tolerant, and secure cloud systems on AWS.",
+  "order": 2
+}

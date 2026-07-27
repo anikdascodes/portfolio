@@ -1,0 +1,18 @@
+{
+  "siteName": "Anik Kumar",
+  "siteTitle": "Full-Stack Developer & Product Builder",
+  "tagline": "Full-stack developer building fast, well-crafted web applications and digital products.",
+  "siteUrl": "https://your-portfolio-domain.com",
+  "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop",
+  "location": "Remote / Worldwide",
+  "email": "contact@anikkumar.com",
+  "githubUrl": "https://github.com",
+  "linkedinUrl": "https://linkedin.com",
+  "twitterUrl": "https://x.com",
+  "blogUrl": "#",
+  "availableForHire": true,
+  "footerCopyrightText": "All rights reserved.",
+  "footerTagline": "Crafted with care",
+  "hireMeButtonText": "Get in touch",
+  "hireMeButtonLink": "/contact"
+}

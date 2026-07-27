@@ -1,0 +1,11 @@
+{
+  "heading": "About",
+  "subheading": "Developer, designer & builder.",
+  "bioText": "I'm a full-stack developer building fast, well-crafted web applications and digital products. I care about clean architecture, snappy interfaces, and shipping things that actually work.",
+  "highlights": [
+    "Clean, maintainable code written with modern TypeScript & CSS",
+    "Fast, lightweight web performance without unnecessary complexity",
+    "Thoughtful user interfaces with attention to detail and typography",
+    "End-to-end development from initial architecture to production deployment"
+  ]
+}

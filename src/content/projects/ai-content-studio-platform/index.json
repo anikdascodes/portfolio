@@ -1,0 +1,11 @@
+{
+  "title": "AI Content Studio Platform",
+  "summary": "Full-stack SaaS application providing intelligent copy generation, automated SEO scoring, and multi-channel publication integration.",
+  "featured": true,
+  "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
+  "demoUrl": "https://example.com",
+  "githubUrl": "https://github.com",
+  "techStack": ["Next.js", "OpenAI API", "Tailwind CSS", "Node.js", "PostgreSQL"],
+  "impactMetric": "40% faster content creation",
+  "order": 2
+}

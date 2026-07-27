@@ -1,0 +1,11 @@
+{
+  "title": "FinTech Payment Portal",
+  "summary": "Secure multi-currency payment checkout solution with PCI compliance, webhooks processing, and dynamic fraud prevention checks.",
+  "featured": true,
+  "imageUrl": "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+  "demoUrl": "https://example.com",
+  "githubUrl": "https://github.com",
+  "techStack": ["React", "TypeScript", "Stripe API", "Tailwind CSS", "Serverless"],
+  "impactMetric": "99.99% payment success rate",
+  "order": 3
+}

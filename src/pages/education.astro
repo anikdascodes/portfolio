@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SkillBadge from '../components/SkillBadge.astro';
+import Timeline from '../components/Timeline.astro';
+import educationPage from '../content/education-page/index.json';
+
+import { getCollection } from 'astro:content';
+
+const allSkills = await getCollection('skills');
+const skillsList = allSkills.map(s => s.data).sort((a, b) => a.order - b.order);
+
+const allEducation = await getCollection('education');
+const educationList = allEducation.map(e => e.data).sort((a, b) => a.order - b.order);
+
+const allExperience = await getCollection('experience');
+const experienceList = allExperience.map(ex => ex.data).sort((a, b) => a.order - b.order);
+---
+
+<Layout
+  title={`${educationPage.heading || 'Education'} | Portfolio`}
+  description={educationPage.description}
+>
+  <div class="space-y-14">
+    <!-- Header -->
+    <div class="space-y-3 border-b border-[var(--border-paper)] pb-6">
+      <h1 class="font-serif italic text-4xl text-[var(--ink-primary)]">
+        {educationPage.heading || 'Education'}
+      </h1>
+      <p class="text-[var(--ink-secondary)] text-sm max-w-lg leading-relaxed">
+        {educationPage.description}
+      </p>
+    </div>
+
+    <!-- SKILLS -->
+    <section class="space-y-5">
+      <h2 class="font-serif text-xl text-[var(--ink-primary)] border-b border-[var(--border-paper)] pb-3">{educationPage.skillsSectionHeading || 'Technical Skills'}</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        {skillsList.map((skill) => (
+          <SkillBadge {...skill} />
+        ))}
+      </div>
+    </section>
+
+    <!-- EXPERIENCE TIMELINE -->
+    <section class="space-y-5">
+      <h2 class="font-serif text-xl text-[var(--ink-primary)] border-b border-[var(--border-paper)] pb-3">{educationPage.experienceSectionHeading || 'Experience'}</h2>
+      <div>
+        {experienceList.map((exp) => (
+          <Timeline
+            title={exp.role}
+            subtitle={exp.company}
+            period={exp.period}
+            location={exp.location}
+            logoUrl={exp.logoUrl}
+            description={exp.description}
+            bullets={exp.achievements}
+            isCurrent={exp.isCurrent}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- EDUCATION TIMELINE -->
+    <section class="space-y-5">
+      <h2 class="font-serif text-xl text-[var(--ink-primary)] border-b border-[var(--border-paper)] pb-3">{educationPage.educationSectionHeading || 'Education'}</h2>
+      <div>
+        {educationList.map((edu) => (
+          <Timeline
+            title={edu.degree}
+            subtitle={edu.institution}
+            period={edu.period}
+            location={edu.fieldOfStudy}
+            logoUrl={edu.logoUrl}
+            description={edu.description}
+          />
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import projectsPage from '../content/projects-page/index.json';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects
+  .map(p => p.data)
+  .sort((a, b) => a.order - b.order);
+---
+
+<Layout
+  title={`${projectsPage.heading || 'Projects'} | Portfolio`}
+  description={projectsPage.description}
+>
+  <div class="space-y-10">
+    <div class="space-y-3 border-b border-[var(--border-paper)] pb-6">
+      <h1 class="font-serif italic text-4xl text-[var(--ink-primary)]">
+        {projectsPage.heading || 'Projects'}
+      </h1>
+      <p class="text-[var(--ink-secondary)] text-sm max-w-lg leading-relaxed">
+        {projectsPage.description}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {sortedProjects.map((project) => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+  </div>
+</Layout>

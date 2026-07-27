@@ -1,0 +1,17 @@
+{
+  "badge": "Contact",
+  "heading": "Let's Work Together",
+  "description": "Have a project idea, freelance opportunity, or engineering inquiry? Drop a message below.",
+  "directInfoHeading": "Direct Info",
+  "socialNetworksHeading": "Social Networks",
+  "formHeading": "Send Message",
+  "formNameLabel": "Your Name",
+  "formNamePlaceholder": "John Doe",
+  "formEmailLabel": "Your Email",
+  "formEmailPlaceholder": "john@example.com",
+  "formSubjectLabel": "Subject",
+  "formSubjectPlaceholder": "e.g. Freelance Web Application",
+  "formMessageLabel": "Message",
+  "formMessagePlaceholder": "Project details...",
+  "formButtonText": "Send Message"
+}

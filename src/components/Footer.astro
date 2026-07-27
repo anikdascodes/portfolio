@@ -1,0 +1,27 @@
+---
+import siteSettings from '../content/site-settings/index.json';
+import Icons from './Icons.astro';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-[var(--border-paper)] py-8 px-4 sm:px-6 lg:px-8 mt-auto transition-colors duration-200">
+  <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[var(--ink-secondary)]">
+    <span>© {currentYear} {siteSettings.siteName}</span>
+
+    <div class="flex items-center gap-4">
+      <a href={siteSettings.githubUrl} target="_blank" aria-label="GitHub" class="hover:text-[var(--ink-primary)] transition-colors">
+        <Icons name="Github" class="w-4 h-4" />
+      </a>
+      <a href={siteSettings.linkedinUrl} target="_blank" aria-label="LinkedIn" class="hover:text-[var(--ink-primary)] transition-colors">
+        <Icons name="Linkedin" class="w-4 h-4" />
+      </a>
+      <a href={siteSettings.twitterUrl} target="_blank" aria-label="Twitter" class="hover:text-[var(--ink-primary)] transition-colors">
+        <Icons name="Twitter" class="w-4 h-4" />
+      </a>
+      <a href={`mailto:${siteSettings.email}`} aria-label="Email" class="hover:text-[var(--ink-primary)] transition-colors">
+        <Icons name="Mail" class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+</footer>

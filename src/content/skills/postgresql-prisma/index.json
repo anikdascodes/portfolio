@@ -1,0 +1,7 @@
+{
+  "name": "PostgreSQL & Prisma",
+  "category": "database",
+  "iconName": "Database",
+  "proficiency": "Advanced",
+  "order": 5
+}

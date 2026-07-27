@@ -1,387 +1,102 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Icons from '../components/Icons.astro';
 
-import Profile from '../components/Profile.astro';
-import Contact from '../components/Contact.astro';
+import siteSettings from '../content/site-settings/index.json';
+import hero from '../content/hero/index.json';
+import about from '../content/about/index.json';
+import homeSections from '../content/home-sections/index.json';
 
-import ContentLink from '../components/ContentLink.astro';
-import ContentAboutMd from '../components/ContentAboutMd.astro';
-import ContentProjects from '../components/ContentProjects.astro';
-import ContentBlogs from '../components/ContentBlogs.astro';
-import ContentResume from '../components/ContentResume.astro';
-import ContentCertifications from '../components/ContentCertifications.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .map(p => p.data)
+  .filter(p => p.featured)
+  .sort((a, b) => a.order - b.order)
+  .slice(0, 3);
 ---
 
-<Layout>
+<Layout title={`${siteSettings.siteName} — Portfolio`}>
+  <div class="space-y-20">
+    <!-- HERO -->
+    <section class="flex flex-col md:flex-row items-start justify-between gap-10 pt-4">
+      <!-- Text -->
+      <div class="flex-1 space-y-6 order-2 md:order-1">
+        <h1 class="font-serif italic text-5xl sm:text-6xl lg:text-7xl text-[var(--ink-primary)] leading-[1.05] tracking-tight">
+          {hero.headline || siteSettings.siteName}
+        </h1>
 
-    <!-- Start: Main Wrapper -->
-    <main class="flex flex-col md:flex-row w-full max-w-full md:max-w-7xl border border-gray-600 rounded-2xl overflow-hidden shadow-2xl relative bg-black mb-12 md:mb-4">
+        <p class="text-[var(--ink-secondary)] text-lg leading-relaxed max-w-lg">
+          {about.bioText || hero.subheadline}
+        </p>
 
-        <!-- Start: Left / upper card -->
-        <div class="p-8 md:p-6 flex flex-col justify-between w-full md:w-2/5 border-b md:border-b-0 md:border-r border-gray-600">
+        <div class="flex flex-wrap items-center gap-3 pt-1">
+          <a
+            href={hero.ctaPrimaryLink}
+            class="px-5 py-2.5 rounded-md bg-[var(--ink-primary)] text-[var(--bg-paper)] text-sm font-medium hover:opacity-90 transition-opacity inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-paper)]"
+          >
+            {hero.ctaPrimaryText}
+            <Icons name="ArrowRight" class="w-3.5 h-3.5" />
+          </a>
 
-            <Profile />
+          <a
+            href={hero.resumeUrl || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-5 py-2.5 rounded-md border border-[var(--border-paper)] text-[var(--ink-primary)] text-sm font-medium hover:border-[var(--ink-secondary)] transition-colors inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-paper)]"
+          >
+            {hero.resumeText || 'Resume ↗'}
+          </a>
 
-            <Contact />
-
+          <a
+            href={hero.ctaSecondaryLink}
+            class="px-4 py-2.5 text-[var(--accent)] text-sm font-medium hover:underline underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-paper)] rounded-md"
+          >
+            {hero.ctaSecondaryText}
+          </a>
         </div>
-        <!-- End: Left / upper card -->
+      </div>
 
-        <!-- Start: Right / lower card -->
-        <div class="w-full md:w-3/5 p-0">
-
-            <!-- Start: Inner wrapper -->
-            <div class="min-h-full h-[90vh] flex flex-col overflow-y-scroll">
-
-                <!-- Use hidden radio buttons to control the tabs -->
-                <div class="tab-controls">
-
-                    <input
-                        type="radio"
-                        id="tab1"
-                        name="tabs"
-                        class="tab-radio"
-                        checked
-                    />
-
-                    <input
-                        type="radio"
-                        id="tab2"
-                        name="tabs"
-                        class="tab-radio"
-                    />
-
-                    <input
-                        type="radio"
-                        id="tab3"
-                        name="tabs"
-                        class="tab-radio"
-                    />
-                    <input
-                        type="radio"
-                        id="tab4"
-                        name="tabs"
-                        class="tab-radio"
-                    />
-                    <input
-                        type="radio"
-                        id="tab5"
-                        name="tabs"
-                        class="tab-radio"
-                    />
-
-                    <!-- Start: Tab bar -->
-                    <div class="tab-list flex bg-black border-b border-gray-600 sticky top-0 z-10" role="tablist" aria-label="Portfolio sections">
-
-                        <ContentLink
-                            contentId="tab1"
-                            panelId="content1"
-                            contentName="about.md"
-                            selected={true}
-                        />
-
-                        <ContentLink
-                            contentId="tab2"
-                            panelId="content2"
-                            contentName="projects.md"
-                        />
-
-                        <ContentLink
-                            contentId="tab3"
-                            panelId="content3"
-                            contentName="blogs.md"
-                        />
-                        <ContentLink
-                            contentId="tab4"
-                            panelId="content4"
-                            contentName="resume"
-                        />
-                        <ContentLink
-                            contentId="tab5"
-                            panelId="content5"
-                            contentName="education"
-                        />
-
-                    </div>
-                    <!-- End: Tab bar -->
-
-                    <!-- Start: Tab content -->
-                    <div class="p-6 flex-grow overflow-y-auto bg-black relative">
-
-                        <!-- Start: About content -->
-                        <div id="content1" class="tab-content" role="tabpanel" aria-labelledby="tab1-label" aria-hidden="false" tabindex="0" data-tab-panel="tab1">
-                            <ContentAboutMd />
-                        </div>
-                        <!-- End: About content -->
-
-                        <!-- Start: Projects content -->
-                        <div id="content2" class="tab-content" role="tabpanel" aria-labelledby="tab2-label" aria-hidden="true" tabindex="0" data-tab-panel="tab2">
-                            <ContentProjects />
-                        </div>
-                        <!-- End: Projects content -->
-
-                        <!-- Start: Blogs content -->
-                        <div id="content3" class="tab-content" role="tabpanel" aria-labelledby="tab3-label" aria-hidden="true" tabindex="0" data-tab-panel="tab3">
-                            <ContentBlogs />
-                        </div>
-                        <!-- End: Blogs content -->
-                        <!-- Start: Resume content -->
-                        <div id="content4" class="tab-content h-full flex flex-col" role="tabpanel" aria-labelledby="tab4-label" aria-hidden="true" tabindex="0" data-tab-panel="tab4">
-                            <ContentResume />
-                        </div>
-                        <!-- End: Resume content -->
-                        <!-- Start: Certifications content -->
-                        <div id="content5" class="tab-content" role="tabpanel" aria-labelledby="tab5-label" aria-hidden="true" tabindex="0" data-tab-panel="tab5">
-                            <ContentCertifications />
-                        </div>
-                        <!-- End: Certifications content -->
-
-                    </div>
-                    <!-- End: Tab content -->
-
-                </div>
-
-            </div>
-            <!-- End: Inner wrapper -->
-
+      <!-- Photo -->
+      <div class="order-1 md:order-2 shrink-0">
+        <div class="relative w-44 h-44 sm:w-52 sm:h-52">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-[var(--border-paper)] shadow-lg shadow-black/5 dark:shadow-black/20">
+            <img
+              src={siteSettings.avatarUrl}
+              alt={siteSettings.siteName}
+              fetchpriority="high"
+              width="208"
+              height="208"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          <!-- Subtle paper-edge shadow underneath -->
+          <div class="absolute -inset-1 rounded-full bg-[var(--ink-primary)]/5 dark:bg-white/5 -z-10 blur-md"></div>
         </div>
-        <!-- End: Right / lower card -->
+      </div>
+    </section>
 
-    </main>
-    <!-- End: Main Wrapper -->
+    <!-- PROJECTS -->
+    <section class="space-y-8">
+      <div class="flex items-baseline justify-between gap-4 border-b border-[var(--border-paper)] pb-4">
+        <h2 class="font-serif italic text-2xl text-[var(--ink-primary)]">
+          {homeSections.featuredProjectsHeading || 'Projects'}
+        </h2>
+        <a
+          href={homeSections.featuredProjectsViewAllLink || '/projects'}
+          class="text-sm text-[var(--accent)] hover:underline underline-offset-4"
+        >
+          {homeSections.featuredProjectsViewAllText || 'See all'} →
+        </a>
+      </div>
 
-<!-- Back to Top Button -->
-<button 
-    id="back-to-top"
-    class="fixed bottom-6 right-6 p-3 bg-gray-800 hover:bg-primary text-white rounded-full shadow-lg border border-gray-600 transition-all duration-300 opacity-0 pointer-events-none z-50"
-    aria-label="Back to top"
->
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-    </svg>
-</button>
-
-<script>
-    const tabRadios = Array.from(document.querySelectorAll('.tab-radio'));
-    const tabLinks = Array.from(document.querySelectorAll('.tab-link'));
-    const tabPanels = Array.from(document.querySelectorAll('[data-tab-panel]'));
-
-    function getActiveTabId() {
-        return (document.querySelector('.tab-radio:checked') as HTMLInputElement | null)?.id || 'tab1';
-    }
-
-    function loadLazyMedia(tabId) {
-        const activePanel = document.querySelector(`[data-tab-panel="${tabId}"]`);
-        if (!activePanel) return;
-
-        activePanel.querySelectorAll('[data-lazy-src]').forEach((element) => {
-            if (!element.getAttribute('src')) {
-                element.setAttribute('src', element.getAttribute('data-lazy-src'));
-            }
-        });
-    }
-
-    function syncTabs() {
-        const selectedTabId = getActiveTabId();
-
-        tabLinks.forEach((tabLink) => {
-            const isSelected = tabLink.getAttribute('for') === selectedTabId;
-            tabLink.setAttribute('aria-selected', isSelected ? 'true' : 'false');
-            tabLink.setAttribute('tabindex', isSelected ? '0' : '-1');
-        });
-
-        tabPanels.forEach((panel) => {
-            const isSelected = panel.getAttribute('data-tab-panel') === selectedTabId;
-            panel.setAttribute('aria-hidden', isSelected ? 'false' : 'true');
-        });
-
-        loadLazyMedia(selectedTabId);
-    }
-
-    function selectTab(tabId) {
-        if (!tabId) return;
-        const tabRadio = document.getElementById(tabId) as HTMLInputElement | null;
-        if (tabRadio && tabRadio.type === 'radio') {
-            saveScrollPosition();
-            tabRadio.checked = true;
-            syncTabs();
-        }
-    }
-
-    // Handle URL hash for tab navigation
-    function handleHashNavigation() {
-        const hash = window.location.hash;
-        if (hash) {
-            const tabId = hash.replace('#', '');
-            const tabRadio = document.getElementById(tabId) as HTMLInputElement | null;
-            if (tabRadio && tabRadio.type === 'radio') {
-                tabRadio.checked = true;
-                syncTabs();
-                // Restore scroll position for this tab
-                const savedScroll = sessionStorage.getItem(`scroll-${tabId}`);
-                const contentWrapper = document.querySelector('.overflow-y-scroll');
-                if (contentWrapper && savedScroll) {
-                    setTimeout(() => {
-                        contentWrapper.scrollTop = parseInt(savedScroll);
-                    }, 10);
-                }
-            }
-        }
-    }
-    
-    // Save scroll position when switching tabs
-    function saveScrollPosition() {
-        const contentWrapper = document.querySelector('.overflow-y-scroll');
-        const activeTab = document.querySelector('.tab-radio:checked');
-        if (contentWrapper && activeTab) {
-            sessionStorage.setItem(`scroll-${activeTab.id}`, contentWrapper.scrollTop.toString());
-        }
-    }
-    
-    // Check if this is a page reload
-    const navigationEntries = performance.getEntriesByType && performance.getEntriesByType('navigation');
-    const isReload = navigationEntries && navigationEntries[0] && (navigationEntries[0] as PerformanceNavigationTiming).type === 'reload';
-    
-    if (isReload && window.location.hash) {
-        // Page was reloaded - reset to about page
-        const tab1 = document.getElementById('tab1') as HTMLInputElement | null;
-        if (tab1) tab1.checked = true;
-        syncTabs();
-        // Clear hash from URL without reloading
-        history.replaceState(null, null, window.location.pathname);
-        // Clear saved scroll positions on reload
-        sessionStorage.clear();
-    } else {
-        // Normal navigation - handle hash
-        handleHashNavigation();
-    }
-
-    tabRadios.forEach((radio) => {
-        radio.addEventListener('change', syncTabs);
-    });
-
-    tabLinks.forEach((tabLink, index) => {
-        tabLink.addEventListener('keydown', (event) => {
-            const key = event.key;
-            const lastIndex = tabLinks.length - 1;
-            let nextIndex = index;
-
-            if (key === 'ArrowRight' || key === 'ArrowDown') {
-                nextIndex = index === lastIndex ? 0 : index + 1;
-            } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
-                nextIndex = index === 0 ? lastIndex : index - 1;
-            } else if (key === 'Home') {
-                nextIndex = 0;
-            } else if (key === 'End') {
-                nextIndex = lastIndex;
-            } else if (key === 'Enter' || key === ' ') {
-                event.preventDefault();
-                selectTab(tabLink.getAttribute('for'));
-                return;
-            } else {
-                return;
-            }
-
-            event.preventDefault();
-            const nextTab = tabLinks[nextIndex];
-            selectTab(nextTab.getAttribute('for'));
-            nextTab.focus();
-        });
-    });
-    
-    // Handle hash changes (e.g., back/forward navigation)
-    window.addEventListener('hashchange', () => {
-        saveScrollPosition();
-        handleHashNavigation();
-    });
-    
-    // Save scroll position before leaving page
-    window.addEventListener('beforeunload', saveScrollPosition);
-    syncTabs();
-    
-    // Back to top button functionality
-    const backToTopBtn = document.getElementById('back-to-top');
-    const contentWrapper = document.querySelector('.overflow-y-scroll');
-    
-    if (backToTopBtn && contentWrapper) {
-        contentWrapper.addEventListener('scroll', () => {
-            if (contentWrapper.scrollTop > 300) {
-                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-                backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
-            } else {
-                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
-                backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
-            }
-        });
-        
-        backToTopBtn.addEventListener('click', () => {
-            contentWrapper.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-</script>
-
-<style is:global>
-
-    /* Hide the radio buttons */
-    .tab-radio {
-        @apply absolute opacity-0 pointer-events-none;
-    }
-
-    /* Default state - hide all tab content */
-    .tab-content {
-        @apply hidden opacity-0;
-        transition: opacity 0.3s ease-in-out;
-    }
-
-    /* Default state for tab links */
-    .tab-link {
-        @apply border-b-2 border-transparent bg-transparent;
-        transition: background-color 0.2s ease-in-out;
-    }
-
-    /* When tab1 is checked, show content1 and highlight its tab */
-    #tab1:checked ~ * #content1 {
-        @apply block opacity-100;
-    }
-
-    #tab1:checked ~ .tab-list .tab-link:nth-child(1) {
-        @apply border-b-2 border-b-primary;
-    }
-
-    /* When tab2 is checked, show content2 and highlight its tab */
-    #tab2:checked ~ * #content2 {
-        @apply block opacity-100;
-    }
-
-    #tab2:checked ~ .tab-list .tab-link:nth-child(2) {
-        @apply border-b-2 border-b-primary;
-    }
-
-    /* When tab3 is checked, show content3 and highlight its tab */
-    #tab3:checked ~ * #content3 {
-        @apply block opacity-100;
-    }
-
-    #tab3:checked ~ .tab-list .tab-link:nth-child(3) {
-        @apply border-b-2 border-b-primary;
-    }
-
-    /* When tab4 is checked, show content4 and highlight its tab */
-    #tab4:checked ~ * #content4 {
-        @apply block opacity-100;
-    }
-
-    #tab4:checked ~ .tab-list .tab-link:nth-child(4) {
-        @apply border-b-2 border-b-primary;
-    }
-
-    /* When tab5 is checked, show content5 and highlight its tab */
-    #tab5:checked ~ * #content5 {
-        @apply block opacity-100;
-    }
-
-    #tab5:checked ~ .tab-list .tab-link:nth-child(5) {
-        @apply border-b-2 border-b-primary;
-    }
-
-</style>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {featuredProjects.map((project) => (
+          <ProjectCard {...project} />
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

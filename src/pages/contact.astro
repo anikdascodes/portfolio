@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import siteSettings from '../content/site-settings/index.json';
+import contactPage from '../content/contact-page/index.json';
+import Icons from '../components/Icons.astro';
+---
+
+<Layout
+  title={`${contactPage.heading || "Contact"} | Portfolio`}
+  description={contactPage.description}
+>
+  <div class="space-y-10">
+    <!-- Header -->
+    <div class="space-y-3 border-b border-[var(--border-paper)] pb-6">
+      <h1 class="font-serif italic text-4xl text-[var(--ink-primary)]">
+        {contactPage.heading || "Get in touch"}
+      </h1>
+      <p class="text-[var(--ink-secondary)] text-sm max-w-lg leading-relaxed">
+        {contactPage.description}
+      </p>
+    </div>
+
+    <!-- Contact info inline -->
+    <div class="flex flex-wrap gap-6 text-sm text-[var(--ink-secondary)]">
+      <a href={`mailto:${siteSettings.email}`} class="hover:text-[var(--accent)] transition-colors inline-flex items-center gap-1.5">
+        <Icons name="Mail" class="w-4 h-4" />
+        {siteSettings.email}
+      </a>
+      <span class="inline-flex items-center gap-1.5">
+        <Icons name="MapPin" class="w-4 h-4" />
+        {siteSettings.location}
+      </span>
+      <div class="flex items-center gap-3">
+        <a href={siteSettings.githubUrl} target="_blank" class="hover:text-[var(--ink-primary)] transition-colors" aria-label="GitHub">
+          <Icons name="Github" class="w-4 h-4" />
+        </a>
+        <a href={siteSettings.linkedinUrl} target="_blank" class="hover:text-[var(--ink-primary)] transition-colors" aria-label="LinkedIn">
+          <Icons name="Linkedin" class="w-4 h-4" />
+        </a>
+        <a href={siteSettings.twitterUrl} target="_blank" class="hover:text-[var(--ink-primary)] transition-colors" aria-label="Twitter">
+          <Icons name="Twitter" class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      class="space-y-5 max-w-lg"
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hidden">
+        <label>Don't fill this out: <input name="bot-field" /></label>
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="space-y-1.5">
+          <label for="name" class="text-xs font-mono text-[var(--ink-secondary)] uppercase tracking-wider">{contactPage.formNameLabel || 'Name'}</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder={contactPage.formNamePlaceholder || 'Jane Doe'}
+            class="w-full px-3 py-2.5 rounded-md border border-[var(--border-paper)] text-[var(--ink-primary)] text-sm bg-[var(--bg-paper)] focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/20 transition-colors"
+          />
+        </div>
+        <div class="space-y-1.5">
+          <label for="email" class="text-xs font-mono text-[var(--ink-secondary)] uppercase tracking-wider">{contactPage.formEmailLabel || 'Email'}</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder={contactPage.formEmailPlaceholder || 'jane@company.com'}
+            class="w-full px-3 py-2.5 rounded-md border border-[var(--border-paper)] text-[var(--ink-primary)] text-sm bg-[var(--bg-paper)] focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/20 transition-colors"
+          />
+        </div>
+      </div>
+
+      <div class="space-y-1.5">
+        <label for="subject" class="text-xs font-mono text-[var(--ink-secondary)] uppercase tracking-wider">{contactPage.formSubjectLabel || 'Subject'}</label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          required
+          placeholder={contactPage.formSubjectPlaceholder || 'Project inquiry'}
+          class="w-full px-3 py-2.5 rounded-md border border-[var(--border-paper)] text-[var(--ink-primary)] text-sm bg-[var(--bg-paper)] focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/20 transition-colors"
+        />
+      </div>
+
+      <div class="space-y-1.5">
+        <label for="message" class="text-xs font-mono text-[var(--ink-secondary)] uppercase tracking-wider">{contactPage.formMessageLabel || 'Message'}</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          placeholder={contactPage.formMessagePlaceholder || 'Tell me about your project...'}
+          class="w-full px-3 py-2.5 rounded-md border border-[var(--border-paper)] text-[var(--ink-primary)] text-sm bg-[var(--bg-paper)] focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/20 transition-colors resize-none"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="px-6 py-2.5 rounded-md bg-[var(--ink-primary)] text-[var(--bg-paper)] text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
+      >
+        {contactPage.formButtonText || 'Send message'}
+      </button>
+    </form>
+  </div>
+</Layout>

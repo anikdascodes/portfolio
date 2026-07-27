@@ -1,0 +1,105 @@
+---
+import siteSettings from '../content/site-settings/index.json';
+import Icons from './Icons.astro';
+
+const pathname = new URL(Astro.request.url).pathname;
+
+const navItems = [
+  { name: 'Projects', path: '/projects' },
+  { name: 'Education', path: '/education' },
+  { name: 'Contact', path: '/contact' },
+  { name: 'Blog', path: siteSettings.blogUrl, external: true },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg-paper)]/95 backdrop-blur-sm border-b border-[var(--border-paper)] transition-colors duration-200">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+    <!-- Brand -->
+    <a
+      href="/"
+      class="font-serif text-lg text-[var(--ink-primary)] hover:text-[var(--accent)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-paper)] rounded-sm"
+    >
+      {siteSettings.siteName}
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-5 text-sm">
+      {navItems.map((item) => {
+        const isActive = item.external ? false : (item.path === '/' ? pathname === '/' : pathname.startsWith(item.path));
+        return (
+          <a
+            href={item.path}
+            target={item.external ? '_blank' : '_self'}
+            rel={item.external ? 'noopener noreferrer' : ''}
+            class={`transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-paper)] rounded-sm ${
+              isActive
+                ? 'text-[var(--ink-primary)] font-medium'
+                : 'text-[var(--ink-secondary)] hover:text-[var(--ink-primary)]'
+            }`}
+          >
+            {item.name}{item.external ? ' ↗' : ''}
+          </a>
+        );
+      })}
+    </nav>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-2">
+      <button
+        id="theme-toggle"
+        type="button"
+        aria-label="Toggle theme"
+        class="p-2 rounded-md text-[var(--ink-secondary)] hover:text-[var(--ink-primary)] hover:bg-[var(--border-paper)]/50 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-paper)]"
+      >
+        <span class="dark:hidden"><Icons name="Moon" class="w-4 h-4" /></span>
+        <span class="hidden dark:inline"><Icons name="Sun" class="w-4 h-4" /></span>
+      </button>
+      
+      <button
+        id="mobile-menu-btn"
+        aria-label="Menu"
+        class="md:hidden p-2 rounded-md text-[var(--ink-secondary)] hover:text-[var(--ink-primary)] hover:bg-[var(--border-paper)]/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-paper)]"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[var(--bg-paper)] border-t border-[var(--border-paper)] px-4 py-3 space-y-1">
+    {navItems.map((item) => (
+      <a
+        href={item.path}
+        target={item.external ? '_blank' : '_self'}
+        rel={item.external ? 'noopener noreferrer' : ''}
+        class="block px-3 py-2 rounded-md text-sm text-[var(--ink-secondary)] hover:text-[var(--ink-primary)] hover:bg-[var(--border-paper)]/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+      >
+        {item.name}{item.external ? ' ↗' : ''}
+      </a>
+    ))}
+  </div>
+</header>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    
+    // Remove old listener if re-running by cloning node or just clean attach
+    if (menuBtn) {
+      menuBtn.onclick = () => {
+        menu?.classList.toggle('hidden');
+      };
+    }
+
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+      themeToggleBtn.onclick = () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      };
+    }
+  });
+</script>

@@ -1,0 +1,15 @@
+{
+  "role": "Frontend Developer & Technical Lead",
+  "company": "Vanguard Web Agency",
+  "location": "New York, NY (Hybrid)",
+  "period": "2021 - 2023",
+  "isCurrent": false,
+  "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?q=80&w=200&auto=format&fit=crop",
+  "description": "Delivered 15+ custom web applications for high-growth startups and SMB clients.",
+  "achievements": [
+    "Developed responsive design systems and UI component libraries with Tailwind CSS",
+    "Collaborated directly with founders and product directors to convert wireframes into production code",
+    "Optimized client SEO and Core Web Vitals to consistently reach top Google search rankings"
+  ],
+  "order": 2
+}

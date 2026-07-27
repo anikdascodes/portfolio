@@ -1,219 +1,107 @@
 ---
-import '../styles/global.scss';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
-    // SEO Props - all optional with defaults
-    title?: string;
-    description?: string;
-    keywords?: string;
-    ogImage?: string;
-    ogType?: string;
-    canonicalURL?: string;
-    noindex?: boolean;
-    publishDate?: Date;
-    modifiedDate?: Date;
-    author?: string;
-    tags?: string[];
+  title?: string;
+  description?: string;
+  image?: string;
 }
 
-const {
-    title,
-    description,
-    keywords,
-    ogImage,
-    ogType = 'website',
-    canonicalURL,
-    noindex = false,
-    publishDate,
-    modifiedDate,
-    author,
-    tags
+import siteSettings from '../content/site-settings/index.json';
+
+const { 
+  title = `${siteSettings.siteName} — Portfolio`,
+  description = siteSettings.tagline,
+  image = siteSettings.avatarUrl,
 } = Astro.props;
 
-// Base domain URL without trailing slash
-const domainBaseURL = 'https://anikdascodes.netlify.app';
-const siteName = 'Anik Das';
-const defaultOgImage = '/img/meta.png';
-
-function toAbsoluteUrl(value: string) {
-    return new URL(value, domainBaseURL).toString();
-}
-
-// Website publisher & region
-const authorPublisher = author || 'Anik Das';
-const geoRegion = 'IN';
-
-// Default SEO values
-const defaultTitle = 'Anik Das';
-const defaultDescription = 'Portfolio of Anik Das - MSc Data Science and AI student at BITS Pilani (Digital), BSc Data Science graduate from MAKAUT. Exploring Generative AI, Machine Learning, and Data Analytics.';
-const defaultKeywords = 'Data Science, Machine Learning, Python, Generative AI, Portfolio, Anik Das, Data Analytics, AI';
-
-// Use provided values or defaults
-const seoTitle = title ? `${title} | ${siteName}` : defaultTitle;
-const seoDescription = description || defaultDescription;
-const seoKeywords = keywords || defaultKeywords;
-const seoOgImage = toAbsoluteUrl(ogImage || defaultOgImage);
-const pageUrl = canonicalURL ? toAbsoluteUrl(canonicalURL) : toAbsoluteUrl(Astro.url.pathname);
-
-// Twitter card data
-const twitter = {
-    title: title || siteName,
-    description: seoDescription,
-    image: seoOgImage,
-    site: '@AnikCodes',
-    creator: '@AnikCodes'
-};
-
-// Open graph data
-const openGraph = {
-    title: title || siteName,
-    description: seoDescription,
-    url: pageUrl,
-    image: seoOgImage,
-    type: ogType,
-    locale: 'en_US',
-    siteName: siteName,
-    publishDate: publishDate?.toISOString(),
-    modifiedDate: modifiedDate?.toISOString()
-};
-
-// Dublin core
-const dublinCore = {
-    title: title || siteName,
-    creator: authorPublisher,
-    publisher: authorPublisher,
-    rights: authorPublisher,
-    description: seoDescription,
-    language: 'en',
-    type: 'Software',
-    format: 'text/html',
-    date: publishDate?.toISOString()
-};
-
-// Article schema for blog posts
-const articleSchema = ogType === 'article' ? {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: title,
-    description: seoDescription,
-    image: seoOgImage,
-    url: pageUrl,
-    datePublished: publishDate?.toISOString(),
-    dateModified: modifiedDate?.toISOString() || publishDate?.toISOString(),
-    author: {
-        '@type': 'Person',
-        name: authorPublisher,
-        url: domainBaseURL
-    },
-    publisher: {
-        '@type': 'Organization',
-        name: siteName,
-        logo: {
-            '@type': 'ImageObject',
-            url: `${domainBaseURL}/img/logo.svg`
-        }
-    },
-    keywords: tags?.join(', ')
-} : null;
-
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || siteSettings.siteUrl || 'https://your-portfolio-domain.com');
+const imageURL = new URL(image, Astro.site || siteSettings.siteUrl || 'https://your-portfolio-domain.com');
 ---
 
-<!doctype html>
-<html lang="en" class="bg-black text-gray-100 font-mono">
+<!html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
 
-    <head>
+    <!-- OpenGraph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:site_name" content={siteSettings.siteName} />
 
-        <!-- Crawler & Robots -->
-        <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, noodp, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
-        <meta name="revisit-after" content="7 days" />
-        <meta name="revisit" content="after 7 days" />
+    <!-- Twitter Cards -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={imageURL} />
 
-        <!-- Start: Meta-Tags -->
-        <meta charset="UTF-8" />
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <meta http-equiv="Pragma" content="cache" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- End: Meta-Tags -->
+    <!-- Fonts: Instrument Serif (display), Inter (body), JetBrains Mono (utility) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@350;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-        <!-- Start: DNS prefetch and preconnect -->
-        <link rel="preload" as="image" href="/img/logo.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <!-- End: DNS prefetch and preconnect -->
+    <ClientRouter />
 
-        <!-- Start: Theming and Favicons -->
-        <link rel="icon" type="image/png" href="/img/fav.png" />
-        <link rel="apple-touch-icon" href="/img/fav.png" />
-        <!-- End: Theming and Favicons -->
+    <!-- Anti-flicker Theme Initialization Script -->
+    <script is:inline>
+      const applyTheme = () => {
+        const theme = (() => {
+          if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+            return localStorage.getItem('theme');
+          }
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+          }
+          return 'light';
+        })();
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      };
+      applyTheme();
+      document.addEventListener('astro:after-swap', applyTheme);
+    </script>
 
-        <!-- Start: Misc meta tags -->
-        <link rel="sitemap" href="/sitemap-index.xml" />
-        <link rel="canonical" href={pageUrl} />
-        {ogType === 'article' && publishDate && (
-            <meta name="article:published_time" content={publishDate.toISOString()} />
-        )}
-        {ogType === 'article' && modifiedDate && (
-            <meta name="article:modified_time" content={modifiedDate.toISOString()} />
-        )}
+    <style>
+      body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        font-weight: 400;
+        letter-spacing: -0.011em;
+      }
+      .font-serif {
+        font-family: 'Instrument Serif', Georgia, serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+      }
+    </style>
+  </head>
+  <body class="bg-[var(--bg-paper)] text-[var(--ink-primary)] min-h-screen flex flex-col antialiased transition-colors duration-200">
+    <Header />
 
-        <meta name="geo.region" content={geoRegion}>
-        <meta name="author" content={authorPublisher}>
-        <meta name="publisher" content={authorPublisher}>
-        <meta name="copyright" content={authorPublisher}>
-        <!-- End: Misc meta tags -->
+    <main class="flex-grow pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-3xl w-full mx-auto">
+      <slot />
+    </main>
 
-        <!-- Start: Facebook open graph -->
-        <meta property="og:title" content={openGraph.title}>
-        <meta property="og:description" content={openGraph.description}>
-        <meta property="og:url" content={openGraph.url}>
-        <meta property="og:type" content={openGraph.type}>
-        <meta property="og:image" content={openGraph.image}>
-        <meta property="og:locale" content={openGraph.locale}>
-        <meta property="og:site_name" content={openGraph.siteName}>
-        {openGraph.publishDate && <meta property="article:published_time" content={openGraph.publishDate} />}
-        {openGraph.modifiedDate && <meta property="article:modified_time" content={openGraph.modifiedDate} />}
-        <!-- End: Facebook open graph -->
-
-        <!-- Start: Twitter card -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content={twitter.title}>
-        <meta name="twitter:description" content={twitter.description}>
-        <meta name="twitter:image" content={twitter.image}>
-        <meta name="twitter:site" content={twitter.site}>
-        <meta name="twitter:creator" content={twitter.creator}>
-        <!-- End: Twitter card -->
-
-        <!-- Start: Dublin Core (DC) -->
-        <meta name="DC.Title" content={dublinCore.title}>
-        <meta name="DC.Creator" content={dublinCore.creator}>
-        <meta name="DC.Rights" content={dublinCore.rights}>
-        <meta name="DC.Publisher" content={dublinCore.publisher}>
-        <meta name="DC.Description" content={dublinCore.description}>
-        <meta name="DC.Language" content={dublinCore.language}>
-        <meta name="DC.Type" content={dublinCore.type}>
-        <meta name="DC.Format" content={dublinCore.format}>
-        {dublinCore.date && <meta name="DC.Date" content={dublinCore.date} />}
-        <!-- End: Dublin Core (DC) -->
-
-        <!-- Title & Description -->
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription}>
-        <meta name="abstract" content={seoDescription}>
-        <meta name="keywords" content={seoKeywords}>
-
-        <!-- Structured Data / JSON-LD -->
-        {articleSchema && (
-            <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-        )}
-
-        <!-- RSS Feed -->
-        <link rel="alternate" type="application/rss+xml" title={`${siteName} Blog RSS`} href="/rss.xml" />
-
-    </head>
-
-    <body class="min-h-[100vh] flex items-center justify-center p-4">
-        <slot />
-    </body>
-
+    <Footer />
+  </body>
 </html>

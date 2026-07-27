@@ -1,0 +1,11 @@
+{
+  "title": "Ecommerce Analytics Dashboard",
+  "summary": "Real-time analytics engine processing sales telemetry, inventory metrics, and customer retention metrics with instant data visualization.",
+  "featured": true,
+  "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+  "demoUrl": "https://example.com",
+  "githubUrl": "https://github.com",
+  "techStack": ["Astro", "React", "Tailwind CSS", "TypeScript", "Chart.js"],
+  "impactMetric": "Processed $1.2M+ transactions",
+  "order": 1
+}
